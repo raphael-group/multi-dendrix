@@ -21,9 +21,12 @@ Arguments
 ************
 The Multi-Dendrix pipeline accepts the following parameters. You may also be interested in the :doc:`/file_formats` accepted by Multi-Dendrix.
 
-.. only:: latex 
+.. only:: latex
+	
 	.. csv-table:: Multi-Dendrix Pipeline Arguments
 		:header: Name,Type,Description,Flag(s),Required,Default,Example
+		:widths: 15, 15, 15, 15, 10, 10, 10
+		
 		Output directory,*string*,Directory name to store the text and HTML output.,-o / --output_dir,Yes.,N/A,"output"
 		Verbose,*boolean*,Flag whether to output progress or not.,-v / --verbose,No.,False,N/A
 		*kmin*,*integer*,Minimum gene set size.,-k_min / --min_gene_set_size,Yes.,N/A,2
@@ -310,8 +313,8 @@ The Multi-Dendrix pipeline accepts the following parameters. You may also be int
 
 	</table>
 
-
 Script
+*******
 .. currentmodule:: multi_dendrix_pipeline
 .. autosummary::
 	:toctree: module_docs/pipeline
