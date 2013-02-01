@@ -1,0 +1,34 @@
+Rapid identification of multiple driver pathways from cancer data
+--------------------------------------------------------------------------------
+
+.. figure:: _static/striking_img.png
+	:scale: 100%
+	:alt: Mutation matrix of a gene set identified by Multi-Dendrix
+
+	Multi-Dendrix is a software package implemented in Python for the simultaneous identification of multiple driver pathways *de novo* in somatic mutation data from a cohort of cancer patients. The Multi-Dendrix algorithm relies on two combinatorial properties of mutations in a driver pathway: high coverage and mutual exclusivity. Multi-Dendrix uses IBM's CPLEX optimization software to rapidly identify an optimal collection of gene sets from genome-scale data in hundreds of patients. 
+
+
+=====================================  ========================================  =================================
+`Installation <./installation.html>`_  `Read documentation <./contents.html>`_   `See examples <./examples.html>`_
+*step-by-step instructions*            *all modules and functions*                *scripts and results*
+=====================================  ========================================  =================================
+
+|
+
+Multi-Dendrix Pipeline
+==================
+.. figure:: _static/pipeline.png
+	:scale: 100%
+	:alt: Multi-Dendrix pipeline
+
+	Shown above are the steps of the Multi-Dendrix pipeline. Data preprocessing is shown as a "precursor" step and at this time is not part of the Multi-Dendrix software package. Multi-Dendrix takes as input a binary mutation matrix that lists the genes mutated in each patient (for more information on input files see the `File formats <./file_formats.html>`_ page). Multi-Dendrix then identifies an optimal collection of gene sets that fit the prescribed paramters, and analyzes the results for a) (sub)type-specific mutations; b) stability measures; c) statistical significance; and, d) enrichment on the `iRefIndex <http://irefindex.uio.no/wiki/iRefIndex>`_ protein-protein interaction network. Finally, the results of this analysis are output as both text and HTML. The full pipeline is described :doc:`/pipeline`, and is implemented in the multi_dendrix_pipeline module.
+
+
+Key features
+==================
+* Identifies optimal *collections* of gene sets of variable size that have mutually exclusive mutations.
+* Integration with `IBM's CPLEX <http://www-01.ibm.com/software/integration/optimization/cplex-optimizer/>`_ allows for Multi-Dendrix to use multi-core machines to rapidly identify collections even in large datasets.
+* Results are evaluated with a statistical test and on the protein-protein interaction network.
+* Includes analysis for (sub)type-specific mutations to help determine if an exclusive pattern of mutations in a gene set is due to a functional relationship or the result subtype-specific targeting.
+* Collections are analyzed for stability.
+* Results are output in an easy-to-publish web format.

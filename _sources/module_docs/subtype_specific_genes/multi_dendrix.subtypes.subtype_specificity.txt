@@ -1,0 +1,6 @@
+multi_dendrix.subtypes.subtype_specificity
+==========================================
+
+.. currentmodule:: multi_dendrix.subtypes
+
+.. autofunction:: subtype_specificity

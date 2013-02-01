@@ -1,0 +1,6 @@
+multi_dendrix_pipeline.run_matrix_permutation_test
+==================================================
+
+.. currentmodule:: multi_dendrix_pipeline
+
+.. autofunction:: run_matrix_permutation_test

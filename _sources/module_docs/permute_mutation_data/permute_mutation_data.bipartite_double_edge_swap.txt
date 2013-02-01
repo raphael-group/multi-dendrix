@@ -1,0 +1,6 @@
+permute_mutation_data.bipartite_double_edge_swap
+================================================
+
+.. currentmodule:: permute_mutation_data
+
+.. autofunction:: bipartite_double_edge_swap

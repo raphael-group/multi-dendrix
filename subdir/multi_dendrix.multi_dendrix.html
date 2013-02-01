@@ -1,0 +1,132 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>multi_dendrix.multi_dendrix &mdash; Multi-Dendrix 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Multi-Dendrix 1.0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../index.html"><img src="../_static/logo.png" border="0" alt="py4sci"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/subdir/multi_dendrix.multi_dendrix.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="multi-dendrix-multi-dendrix">
+<h1>multi_dendrix.multi_dendrix<a class="headerlink" href="#multi-dendrix-multi-dendrix" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="multi_dendrix.multi_dendrix">
+<tt class="descclassname">multi_dendrix.</tt><tt class="descname">multi_dendrix</tt><big>(</big><em>(genes</em>, <em>tumors2genes</em>, <em>(ilp</em>, <em>my_obj</em>, <em>my_sense</em>, <em>my_rhs))</em>, <em>t=0</em>, <em>k_min=0</em>, <em>k_max=1e+20</em>, <em>alpha=1.0</em>, <em>overlaps=0.0</em>, <em>t_per_gene=1.0</em>, <em>verbose=False</em>, <em>max_mem=None</em>, <em>max_time=None</em><big>)</big><a class="reference internal" href="../_modules/multi_dendrix.html#multi_dendrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multi_dendrix.multi_dendrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of Multi-Dendrix ILP. Requires installation of CPLEX Python.
+Input: genes, tumors2genes, genes2tumors - mutation data from</p>
+<blockquote>
+<div>load_mutation_data() below</div></blockquote>
+<dl class="docutils">
+<dt>Options: t     - number of pathways</dt>
+<dd><p class="first">k_min - minimum pathway size
+k_max - maximum pathway size
+alpha - parameter that changes the weight function W by changing</p>
+<blockquote>
+<div>the tradeoff between coverage and coverage overlap</div></blockquote>
+<p class="last">overlaps - number of overlaps allowed between any pair of pathways
+t_per_gene - number of pathways any gene can be a member of
+verbose - outputs results to stdout</p>
+</dd>
+<dt>Output: Writes pathways to file called &#8220;multi_dendrix_pathways.txt&#8221;.</dt>
+<dd>Each line lists the weight and genes for each pathway.</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Max Leiserson.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+network_permutation_test.sum_dist
+=================================
+
+.. currentmodule:: network_permutation_test
+
+.. autofunction:: sum_dist

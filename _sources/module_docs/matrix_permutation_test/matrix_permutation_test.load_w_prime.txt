@@ -1,0 +1,6 @@
+matrix_permutation_test.load_w_prime
+====================================
+
+.. currentmodule:: matrix_permutation_test
+
+.. autofunction:: load_w_prime

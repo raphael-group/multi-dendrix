@@ -1,0 +1,6 @@
+multi_dendrix.load_db_with_cutoff
+=================================
+
+.. currentmodule:: multi_dendrix
+
+.. autofunction:: load_db_with_cutoff

@@ -1,0 +1,6 @@
+network_tests.remove_name_annotation
+====================================
+
+.. currentmodule:: network_tests
+
+.. autofunction:: remove_name_annotation

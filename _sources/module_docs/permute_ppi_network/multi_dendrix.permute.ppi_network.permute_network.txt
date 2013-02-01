@@ -1,0 +1,6 @@
+multi_dendrix.permute.ppi_network.permute_network
+=================================================
+
+.. currentmodule:: multi_dendrix.permute.ppi_network
+
+.. autofunction:: permute_network

@@ -1,0 +1,6 @@
+multi_dendrix.subtypes.keep_significant
+=======================================
+
+.. currentmodule:: multi_dendrix.subtypes
+
+.. autofunction:: keep_significant

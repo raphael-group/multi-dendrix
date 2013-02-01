@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>multi_dendrix.core_modules.extract &mdash; Multi-Dendrix 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Multi-Dendrix 1.0 documentation" href="../../index.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: center; border-top:15px #24235a solid;">
+<a href="../../index.html"><img src="../../_static/logo.png" border="0" alt="Multi-Dendrix Logo"/></a>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;"></div>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;margin-top:2px;"></div>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;margin-top:2px;"></div>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../pipeline.html">pipeline</a>|&nbsp;</li>
+        <li><a href="../../contents.html">contents</a>|&nbsp;</li>
+        <li><a href="../../examples.html">examples</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/module_docs/core_modules/multi_dendrix.core_modules.extract.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="multi-dendrix-core-modules-extract">
+<h1>multi_dendrix.core_modules.extract<a class="headerlink" href="#multi-dendrix-core-modules-extract" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="multi_dendrix.core_modules.extract">
+<tt class="descclassname">multi_dendrix.core_modules.</tt><tt class="descname">extract</tt><big>(</big><em>collections</em>, <em>stability_threshold</em><big>)</big><a class="headerlink" href="#multi_dendrix.core_modules.extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the core modules from a set of collections output by Multi-Dendrix.
+Core modules are defined by how often genes appear in the same gene set together
+for different parameters of Multi-Dendrix (&#8220;how often&#8221; is tunable using the
+stability threshold).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>collections</strong> (<em>list of lists of lists</em>) &#8211; multiple collections of gene sets identified by Multi-Dendrix.</li>
+<li><strong>stability_threshold</strong> (<em>int</em>) &#8211; the number of times two genes must appear in the same gene set in order to be grouped in the same module.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt><strong>Returns:</strong></dt>
+<dd><dl class="first last docutils">
+<dt>A tuple containing the following:</dt>
+<dd><ul class="first last simple">
+<li><strong>core_modules</strong> (<em>list of lists</em>) - the core modules identified by the algorithm</li>
+<li><strong>module_graph</strong> (<em>NetworkX Graph</em>) - the graph created to identify the core modules, where genes are nodes and pairs of genes are connected by edges weighted by how often they appeared in the same gene set.</li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt><strong>Example:</strong></dt>
+<dd><dl class="first last docutils">
+<dt>A simple example with the resulting module graph (edges with weight zero are not shown):</dt>
+<dd><div class="first highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">networkx</span> <span class="kn">as</span> <span class="nn">nx</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collections</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[[</span><span class="s">&quot;G1&quot;</span><span class="p">,</span> <span class="s">&quot;G2&quot;</span><span class="p">,</span> <span class="s">&quot;G3&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s">&quot;G4&quot;</span><span class="p">,</span> <span class="s">&quot;G5&quot;</span><span class="p">,</span> <span class="s">&quot;G6&quot;</span><span class="p">]],</span>
+<span class="go">                    [[&quot;G1&quot;, &quot;G2&quot;, &quot;G3&quot;], [&quot;G4&quot;, &quot;G5&quot;, &quot;G6&quot;, &quot;G7&quot;]],</span>
+<span class="go">                    [[&quot;G1&quot;, &quot;G2&quot;, &quot;G3&quot;], [&quot;G4&quot;, &quot;G5&quot;, &quot;G7&quot;, &quot;G8&quot;]] ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">core_modules</span><span class="p">,</span> <span class="n">module_graph</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">collections</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">core_modules</span>
+<span class="go">[[&#39;G7&#39;, &#39;G6&#39;, &#39;G5&#39;, &#39;G4&#39;], [&#39;G3&#39;, &#39;G2&#39;, &#39;G1&#39;]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">module_graph</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote class="last">
+<div><img alt="../../_images/module_graph.png" src="../../_images/module_graph.png" />
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../pipeline.html">pipeline</a>|&nbsp;</li>
+        <li><a href="../../contents.html">contents</a>|&nbsp;</li>
+        <li><a href="../../examples.html">examples</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Max Leiserson.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

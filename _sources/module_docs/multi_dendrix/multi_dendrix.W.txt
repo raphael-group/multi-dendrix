@@ -1,0 +1,6 @@
+multi_dendrix.W
+===============
+
+.. currentmodule:: multi_dendrix
+
+.. autofunction:: W

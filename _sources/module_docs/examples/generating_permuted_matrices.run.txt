@@ -1,0 +1,6 @@
+generating_permuted_matrices.run
+================================
+
+.. currentmodule:: generating_permuted_matrices
+
+.. autofunction:: run

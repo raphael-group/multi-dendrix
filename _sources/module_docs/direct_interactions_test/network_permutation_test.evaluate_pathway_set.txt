@@ -1,0 +1,6 @@
+network_permutation_test.evaluate_pathway_set
+=============================================
+
+.. currentmodule:: network_permutation_test
+
+.. autofunction:: evaluate_pathway_set

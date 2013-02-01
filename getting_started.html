@@ -1,0 +1,158 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting started &mdash; Multi-Dendrix 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Multi-Dendrix 1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: center; border-top:15px #24235a solid;">
+<a href="index.html"><img src="_static/logo.png" border="0" alt="Multi-Dendrix Logo"/></a>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;"></div>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;margin-top:2px;"></div>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;margin-top:2px;"></div>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="pipeline.html">pipeline</a>|&nbsp;</li>
+        <li><a href="contents.html">contents</a>|&nbsp;</li>
+        <li><a href="examples.html">examples</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting started</a><ul>
+<li><a class="reference internal" href="#running-multi-dendrix">Running Multi-Dendrix</a></li>
+<li><a class="reference internal" href="#improving-runtime">Improving runtime</a><ul>
+<li><a class="reference internal" href="#run-multi-dendrix-on-a-multi-core-machine">Run Multi-Dendrix on a multi-core machine</a></li>
+<li><a class="reference internal" href="#set-the-parameters-of-multi-dendrix-carefully">Set the parameters of Multi-Dendrix carefully</a></li>
+<li><a class="reference internal" href="#permute-data-in-advance">Permute data in advance</a></li>
+<li><a class="reference internal" href="#use-a-compute-cluster">Use a compute cluster</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/getting_started.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started">
+<span id="id1"></span><h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="running-multi-dendrix">
+<span id="installing-docdir"></span><h2>Running Multi-Dendrix<a class="headerlink" href="#running-multi-dendrix" title="Permalink to this headline">¶</a></h2>
+<p>Included in the Multi-Dendrix package is a script called <em>run_multi_dendrix.sh</em>. This script will run the full <a class="reference internal" href="pipeline.html"><em>Multi-Dendrix Pipeline</em></a> on the GBM(2008) mutation data provided in examples/mutation_data. To get started, I would copy this script and create a version using your own mutation data and parameters. For additional example scripts, see <a class="reference internal" href="examples.html"><em>Example uses of the Multi-Dendrix pipeline</em></a>, which also includes output from users of Multi-Dendrix.</p>
+</div>
+<div class="section" id="improving-runtime">
+<h2>Improving runtime<a class="headerlink" href="#improving-runtime" title="Permalink to this headline">¶</a></h2>
+<p>There are a few bottlenecks when running Multi-Dendrix that can be alleviated by doing some computation in advance.</p>
+<div class="section" id="run-multi-dendrix-on-a-multi-core-machine">
+<h3>Run Multi-Dendrix on a multi-core machine<a class="headerlink" href="#run-multi-dendrix-on-a-multi-core-machine" title="Permalink to this headline">¶</a></h3>
+<p>Because Multi-Dendrix uses IBM&#8217;s CPLEX, it can take advantage of how ever many cores your machine has. Thus, for larger jobs, running on a machine with multiple cores will decrease the runtime linearly with the number of cores.</p>
+</div>
+<div class="section" id="set-the-parameters-of-multi-dendrix-carefully">
+<h3>Set the parameters of Multi-Dendrix carefully<a class="headerlink" href="#set-the-parameters-of-multi-dendrix-carefully" title="Permalink to this headline">¶</a></h3>
+<p>In general, larger values of number <em>t</em> of gene sets will cause Multi-Dendrix to take longer to complete than larger values of the maximum gene set size <em>kmax</em>. I would start by running with <em>kmax</em> = 3 and <em>t</em> = 2 just to get a flavor of how quickly CPLEX can solve the ILP. If CPLEX is slow for large values of <em>t</em> and <em>kmax</em>, try setting <em>kmin</em> close to <em>kmax</em> to reduce the space of constraints.</p>
+<p>The parameters <em>delta</em> and <em>lambda</em> for setting the number of overlaps between gene sets and limiting the number of gene sets a gene can be a member of are relatively untested, but will increase the number of constraints rapidly and therefore will result in much slower runtimes.</p>
+</div>
+<div class="section" id="permute-data-in-advance">
+<h3>Permute data in advance<a class="headerlink" href="#permute-data-in-advance" title="Permalink to this headline">¶</a></h3>
+<p>First and foremost is generating the permuted PPI networks and permuted mutation data before running the <a class="reference internal" href="pipeline.html"><em>Multi-Dendrix Pipeline</em></a>. Permuting the provided iRefIndex PPI network <em>once</em> can take up to 20 minutes, so trying to achieve statistical significance to <em>P</em> &lt; 0.01 by permuting 100 networks sequentially can be a real hassle. Instead, permute the networks and mutation data first, and then provide the directories to the <a class="reference internal" href="pipeline.html"><em>Multi-Dendrix Pipeline</em></a> using the &#8211;permuted_networks_dir and &#8211;permuted_matrices_dir options.</p>
+</div>
+<div class="section" id="use-a-compute-cluster">
+<h3>Use a compute cluster<a class="headerlink" href="#use-a-compute-cluster" title="Permalink to this headline">¶</a></h3>
+<p>If you have access to a compute cluster, it will be immensely useful for performing the statistical significance (matrix permutation) and direct interactions tests. That is because the permutation tests are repeating the same exact computation on permuted versions of the mutation data / PPI network hundreds (if not thousands) of times. I don&#8217;t include any scripts for harnessing the power of a cluster but if you&#8217;re interested and need help contact me and I may be able provide assistance.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="pipeline.html">pipeline</a>|&nbsp;</li>
+        <li><a href="contents.html">contents</a>|&nbsp;</li>
+        <li><a href="examples.html">examples</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Max Leiserson.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

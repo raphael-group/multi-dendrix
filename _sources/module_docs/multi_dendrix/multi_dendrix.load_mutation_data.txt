@@ -1,0 +1,6 @@
+multi_dendrix.load_mutation_data
+================================
+
+.. currentmodule:: multi_dendrix
+
+.. autofunction:: load_mutation_data

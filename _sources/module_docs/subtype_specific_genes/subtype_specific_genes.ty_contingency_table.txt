@@ -1,0 +1,6 @@
+subtype_specific_genes.ty_contingency_table
+===========================================
+
+.. currentmodule:: subtype_specific_genes
+
+.. autofunction:: ty_contingency_table
