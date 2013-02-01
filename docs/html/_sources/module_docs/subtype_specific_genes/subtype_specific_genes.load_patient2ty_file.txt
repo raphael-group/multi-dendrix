@@ -1,6 +1,0 @@
-subtype_specific_genes.load_patient2ty_file
-===========================================
-
-.. currentmodule:: subtype_specific_genes
-
-.. autofunction:: load_patient2ty_file

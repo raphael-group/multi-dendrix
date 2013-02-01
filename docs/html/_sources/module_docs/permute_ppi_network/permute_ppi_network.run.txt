@@ -1,6 +1,0 @@
-permute_ppi_network.run
-=======================
-
-.. currentmodule:: permute_ppi_network
-
-.. autofunction:: run

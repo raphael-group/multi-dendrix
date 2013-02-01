@@ -1,6 +1,0 @@
-multi_dendrix.ILP
-=================
-
-.. currentmodule:: multi_dendrix
-
-.. autofunction:: ILP

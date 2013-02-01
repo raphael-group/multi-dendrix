@@ -1,6 +1,0 @@
-network_permutation_test.load_network
-=====================================
-
-.. currentmodule:: network_permutation_test
-
-.. autofunction:: load_network

@@ -1,6 +1,0 @@
-multi_dendrix.subtypes.ty_contingency_table
-===========================================
-
-.. currentmodule:: multi_dendrix.subtypes
-
-.. autofunction:: ty_contingency_table

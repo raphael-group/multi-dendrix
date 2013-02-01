@@ -1,6 +1,0 @@
-run_multi_dendrix.run_network_permutation_test
-==============================================
-
-.. currentmodule:: run_multi_dendrix
-
-.. autofunction:: run_network_permutation_test

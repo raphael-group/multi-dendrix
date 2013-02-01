@@ -1,6 +1,0 @@
-permute_ppi_network.load_network
-================================
-
-.. currentmodule:: permute_ppi_network
-
-.. autofunction:: load_network

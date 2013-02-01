@@ -1,6 +1,0 @@
-network_permutation_test.run
-============================
-
-.. currentmodule:: network_permutation_test
-
-.. autofunction:: run

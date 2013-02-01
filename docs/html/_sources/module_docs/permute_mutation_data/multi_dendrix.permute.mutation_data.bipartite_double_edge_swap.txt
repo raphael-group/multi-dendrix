@@ -1,6 +1,0 @@
-multi_dendrix.permute.mutation_data.bipartite_double_edge_swap
-==============================================================
-
-.. currentmodule:: multi_dendrix.permute.mutation_data
-
-.. autofunction:: bipartite_double_edge_swap

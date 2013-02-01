@@ -1,6 +1,0 @@
-matrix_permutation_test.run
-===========================
-
-.. currentmodule:: matrix_permutation_test
-
-.. autofunction:: run

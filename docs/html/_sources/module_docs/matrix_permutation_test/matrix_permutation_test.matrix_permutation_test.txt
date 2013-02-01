@@ -1,6 +1,0 @@
-matrix_permutation_test.matrix_permutation_test
-===============================================
-
-.. currentmodule:: matrix_permutation_test
-
-.. autofunction:: matrix_permutation_test

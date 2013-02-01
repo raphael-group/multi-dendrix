@@ -248,7 +248,7 @@ def flatten_collections(collections):
     return all_collections
 
 def run(args):
-    """Runs the whole Multi-Dendrix pipeline for the given command-line arguments."""
+    """Runs the whole :doc:`/pipeline` for the given command-line arguments."""
     # Run Multi-Dendrix for all parameter settings 
     collections, mutation_data, runtime = batch_multi_dendrix(args)
     

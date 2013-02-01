@@ -1,6 +1,0 @@
-network_permutation_test.evaluate_collection
-============================================
-
-.. currentmodule:: network_permutation_test
-
-.. autofunction:: evaluate_collection

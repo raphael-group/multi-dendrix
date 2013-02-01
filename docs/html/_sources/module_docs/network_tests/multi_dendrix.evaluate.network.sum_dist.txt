@@ -1,6 +1,0 @@
-multi_dendrix.evaluate.network.sum_dist
-=======================================
-
-.. currentmodule:: multi_dendrix.evaluate.network
-
-.. autofunction:: sum_dist

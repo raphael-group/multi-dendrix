@@ -1,6 +1,0 @@
-network_tests.interact
-======================
-
-.. currentmodule:: network_tests
-
-.. autofunction:: interact

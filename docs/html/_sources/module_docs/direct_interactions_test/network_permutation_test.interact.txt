@@ -1,6 +1,0 @@
-network_permutation_test.interact
-=================================
-
-.. currentmodule:: network_permutation_test
-
-.. autofunction:: interact

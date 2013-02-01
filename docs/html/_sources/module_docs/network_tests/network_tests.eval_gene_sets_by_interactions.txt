@@ -1,6 +1,0 @@
-network_tests.eval_gene_sets_by_interactions
-============================================
-
-.. currentmodule:: network_tests
-
-.. autofunction:: eval_gene_sets_by_interactions

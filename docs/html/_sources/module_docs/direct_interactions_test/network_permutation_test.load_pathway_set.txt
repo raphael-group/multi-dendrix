@@ -1,6 +1,0 @@
-network_permutation_test.load_pathway_set
-=========================================
-
-.. currentmodule:: network_permutation_test
-
-.. autofunction:: load_pathway_set

@@ -1,6 +1,0 @@
-network_tests.count_interactions
-================================
-
-.. currentmodule:: network_tests
-
-.. autofunction:: count_interactions

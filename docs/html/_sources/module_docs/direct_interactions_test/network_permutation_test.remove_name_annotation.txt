@@ -1,6 +1,0 @@
-network_permutation_test.remove_name_annotation
-===============================================
-
-.. currentmodule:: network_permutation_test
-
-.. autofunction:: remove_name_annotation

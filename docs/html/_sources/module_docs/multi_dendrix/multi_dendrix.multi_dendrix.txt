@@ -1,6 +1,0 @@
-multi_dendrix.multi_dendrix
-===========================
-
-.. currentmodule:: multi_dendrix
-
-.. autofunction:: multi_dendrix

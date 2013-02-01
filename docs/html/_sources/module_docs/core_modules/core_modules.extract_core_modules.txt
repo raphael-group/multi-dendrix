@@ -1,6 +1,0 @@
-core_modules.extract_core_modules
-=================================
-
-.. currentmodule:: core_modules
-
-.. autofunction:: extract_core_modules

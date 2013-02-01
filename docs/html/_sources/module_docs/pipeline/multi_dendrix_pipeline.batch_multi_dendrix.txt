@@ -1,6 +1,0 @@
-multi_dendrix_pipeline.batch_multi_dendrix
-==========================================
-
-.. currentmodule:: multi_dendrix_pipeline
-
-.. autofunction:: batch_multi_dendrix

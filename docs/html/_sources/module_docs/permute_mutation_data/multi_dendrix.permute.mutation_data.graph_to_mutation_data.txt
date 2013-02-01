@@ -1,6 +1,0 @@
-multi_dendrix.permute.mutation_data.graph_to_mutation_data
-==========================================================
-
-.. currentmodule:: multi_dendrix.permute.mutation_data
-
-.. autofunction:: graph_to_mutation_data

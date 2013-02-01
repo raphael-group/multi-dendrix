@@ -1,6 +1,0 @@
-multi_dendrix.subtypes.subtype_analysis
-=======================================
-
-.. currentmodule:: multi_dendrix.subtypes
-
-.. autofunction:: subtype_analysis

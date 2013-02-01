@@ -1,6 +1,0 @@
-multi_dendrix.evaluate.matrix.load_w_prime
-==========================================
-
-.. currentmodule:: multi_dendrix.evaluate.matrix
-
-.. autofunction:: load_w_prime

@@ -1,6 +1,0 @@
-multi_dendrix.evaluate.network.direct_interactions_test
-=======================================================
-
-.. currentmodule:: multi_dendrix.evaluate.network
-
-.. autofunction:: direct_interactions_test

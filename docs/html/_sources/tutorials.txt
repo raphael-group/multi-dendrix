@@ -1,7 +1,0 @@
-Example uses of the Multi-Dendrix pipeline
-=========================================
-.. automodule:: tutorials
-	:private-members:
-	:special-members:
-	:inherited-members:
-	:members:

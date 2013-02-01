@@ -1,7 +1,0 @@
-Summary of Multi-Dendrix module.
-=================================
-.. currentmodule:: multi_dendrix
-.. autosummary::
-	:toctree: module_docs/multi_dendrix
-
-	multi_dendrix

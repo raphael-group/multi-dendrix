@@ -1,6 +1,0 @@
-multi_dendrix.evaluate.network.remove_name_annotation
-=====================================================
-
-.. currentmodule:: multi_dendrix.evaluate.network
-
-.. autofunction:: remove_name_annotation

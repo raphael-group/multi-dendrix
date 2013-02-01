@@ -1,6 +1,0 @@
-multi_dendrix.evaluate.network.eval_gene_sets_by_interactions
-=============================================================
-
-.. currentmodule:: multi_dendrix.evaluate.network
-
-.. autofunction:: eval_gene_sets_by_interactions

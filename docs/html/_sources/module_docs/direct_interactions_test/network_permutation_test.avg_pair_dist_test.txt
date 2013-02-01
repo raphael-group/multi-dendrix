@@ -1,6 +1,0 @@
-network_permutation_test.avg_pair_dist_test
-===========================================
-
-.. currentmodule:: network_permutation_test
-
-.. autofunction:: avg_pair_dist_test

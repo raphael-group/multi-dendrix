@@ -1,6 +1,0 @@
-multi_dendrix.evaluate.network.dist
-===================================
-
-.. currentmodule:: multi_dendrix.evaluate.network
-
-.. autofunction:: dist

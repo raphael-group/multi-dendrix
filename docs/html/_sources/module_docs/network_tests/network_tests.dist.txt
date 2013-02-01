@@ -1,6 +1,0 @@
-network_tests.dist
-==================
-
-.. currentmodule:: network_tests
-
-.. autofunction:: dist

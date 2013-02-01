@@ -1,6 +1,0 @@
-network_permutation_test.eval_gene_sets_by_interactions
-=======================================================
-
-.. currentmodule:: network_permutation_test
-
-.. autofunction:: eval_gene_sets_by_interactions

@@ -1,6 +1,0 @@
-network_tests.num_interactions_in_gene_set
-==========================================
-
-.. currentmodule:: network_tests
-
-.. autofunction:: num_interactions_in_gene_set

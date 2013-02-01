@@ -1,6 +1,0 @@
-subtype_specific_genes.keep_significant
-=======================================
-
-.. currentmodule:: subtype_specific_genes
-
-.. autofunction:: keep_significant

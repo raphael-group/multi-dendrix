@@ -1,6 +1,0 @@
-network_tests.sum_dist
-======================
-
-.. currentmodule:: network_tests
-
-.. autofunction:: sum_dist

@@ -1,6 +1,0 @@
-subtype_specific_genes.run
-==========================
-
-.. currentmodule:: subtype_specific_genes
-
-.. autofunction:: run

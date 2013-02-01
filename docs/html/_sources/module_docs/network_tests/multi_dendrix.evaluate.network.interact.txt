@@ -1,6 +1,0 @@
-multi_dendrix.evaluate.network.interact
-=======================================
-
-.. currentmodule:: multi_dendrix.evaluate.network
-
-.. autofunction:: interact

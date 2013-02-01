@@ -1,6 +1,0 @@
-run_multi_dendrix.run
-=====================
-
-.. currentmodule:: run_multi_dendrix
-
-.. autofunction:: run

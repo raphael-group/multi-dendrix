@@ -1,6 +1,0 @@
-multi_dendrix.evaluate.matrix.load_permuted_matrices
-====================================================
-
-.. currentmodule:: multi_dendrix.evaluate.matrix
-
-.. autofunction:: load_permuted_matrices

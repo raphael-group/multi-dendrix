@@ -1,6 +1,0 @@
-multi_dendrix_pipeline.run_network_permutation_test
-===================================================
-
-.. currentmodule:: multi_dendrix_pipeline
-
-.. autofunction:: run_network_permutation_test

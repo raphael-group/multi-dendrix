@@ -1,6 +1,0 @@
-matrix_permutation_test.load_permuted_matrices
-==============================================
-
-.. currentmodule:: matrix_permutation_test
-
-.. autofunction:: load_permuted_matrices

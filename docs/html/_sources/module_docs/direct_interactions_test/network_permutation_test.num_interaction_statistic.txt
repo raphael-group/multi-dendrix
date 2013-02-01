@@ -1,6 +1,0 @@
-network_permutation_test.num_interaction_statistic
-==================================================
-
-.. currentmodule:: network_permutation_test
-
-.. autofunction:: num_interaction_statistic

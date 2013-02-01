@@ -30,5 +30,5 @@ For other uses, please refer to our documentation (see below).
 
 Documentation
 --------------
-We offer extensive documentation for running Multi-Dendrix, as well as creating custom analysis pipelines, at [http://multi-dendrix.github.com](http://multi-dendrix.github.com).
+We offer extensive documentation for running Multi-Dendrix, as well as creating custom analysis pipelines, at [http://mdml.github.com/multi-dendrix](http://mdml.github.com/multi-dendrix).
 

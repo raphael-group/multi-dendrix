@@ -1,6 +1,0 @@
-permute_mutation_data.run
-=========================
-
-.. currentmodule:: permute_mutation_data
-
-.. autofunction:: run

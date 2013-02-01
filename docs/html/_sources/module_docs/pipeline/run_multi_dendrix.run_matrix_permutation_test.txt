@@ -1,6 +1,0 @@
-run_multi_dendrix.run_matrix_permutation_test
-=============================================
-
-.. currentmodule:: run_multi_dendrix
-
-.. autofunction:: run_matrix_permutation_test
