@@ -1,0 +1,6 @@
+subtype_specific_genes.load_sample2ty_file
+==========================================
+
+.. currentmodule:: subtype_specific_genes
+
+.. autofunction:: load_sample2ty_file

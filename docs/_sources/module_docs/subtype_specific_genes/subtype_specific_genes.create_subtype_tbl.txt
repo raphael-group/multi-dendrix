@@ -1,0 +1,6 @@
+subtype_specific_genes.create_subtype_tbl
+=========================================
+
+.. currentmodule:: subtype_specific_genes
+
+.. autofunction:: create_subtype_tbl

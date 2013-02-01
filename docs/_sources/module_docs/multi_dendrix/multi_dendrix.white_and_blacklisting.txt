@@ -1,0 +1,6 @@
+multi_dendrix.white_and_blacklisting
+====================================
+
+.. currentmodule:: multi_dendrix
+
+.. autofunction:: white_and_blacklisting

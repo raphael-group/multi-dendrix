@@ -1,0 +1,6 @@
+multi_dendrix_pipeline.run
+==========================
+
+.. currentmodule:: multi_dendrix_pipeline
+
+.. autofunction:: run

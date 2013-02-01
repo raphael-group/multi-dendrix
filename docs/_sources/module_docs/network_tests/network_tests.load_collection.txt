@@ -1,0 +1,6 @@
+network_tests.load_collection
+=============================
+
+.. currentmodule:: network_tests
+
+.. autofunction:: load_collection

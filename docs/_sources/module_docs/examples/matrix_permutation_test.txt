@@ -1,0 +1,16 @@
+matrix_permutation_test
+=======================
+
+.. automodule:: matrix_permutation_test
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   

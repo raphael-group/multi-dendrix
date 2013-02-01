@@ -1,0 +1,6 @@
+network_tests.direct_interactions_stat
+======================================
+
+.. currentmodule:: network_tests
+
+.. autofunction:: direct_interactions_stat

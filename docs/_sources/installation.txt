@@ -1,0 +1,27 @@
+Installation instructions for Multi-Dendrix
+============================================
+
+Downloading and installing
+---------------------------------------------
+To download the latest version of Multi-Dendrix, you can clone from GitHub::
+  
+  git clone https://github.com/mdml/multi-dendrix.git
+
+or by visiting `https://github.com/mdml/multi-dendrix <https://github.com/mdml/multi-dendrix>`_ where you can download a zipped-version of the files.
+
+After pulling from Github, simply run::
+
+	python setup.py install
+
+After that, please visit :doc:`getting_started` or just try running some of the scripts.
+
+System requirements
+---------------------------------------------
+Multi-Dendrix was developed on 64-bit Debian Linux. It has not been tested on other systems.
+
+The Multi-Dendrix package requires the following Python modules:
+  * `IBM's CPLEX <http://goo.gl/dJV6f>`_.
+  * `NetworkX <http://networkx.github.com>`_.
+  * Either SciPy v0.11 or `fisher0.1.4 <http://goo.gl/zYrLr>`_.
+
+In addition, for web output with network figures, Multi-Dendrix requires the installation of `GraphViz <http://www.graphviz.org/>`_.

@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Multi-Dendrix Pipeline &mdash; Multi-Dendrix 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Multi-Dendrix 1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: center; border-top:15px #24235a solid;">
+<a href="index.html"><img src="_static/logo.png" border="0" alt="Multi-Dendrix Logo"/></a>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;"></div>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;margin-top:2px;"></div>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;margin-top:2px;"></div>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="#">pipeline</a>|&nbsp;</li>
+        <li><a href="contents.html">contents</a>|&nbsp;</li>
+        <li><a href="examples.html">examples</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Multi-Dendrix Pipeline</a><ul>
+<li><a class="reference internal" href="#outline">Outline</a></li>
+<li><a class="reference internal" href="#arguments">Arguments</a></li>
+<li><a class="reference internal" href="#script">Script</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pipeline.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="multi-dendrix-pipeline">
+<h1>Multi-Dendrix Pipeline<a class="headerlink" href="#multi-dendrix-pipeline" title="Permalink to this headline">¶</a></h1>
+<p>The simplest way to use Multi-Dendrix is to run the entire Multi-Dendrix pipeline. We have provided a program to run a customizable version of the Multi-Dendrix pipeline in the <em>multi_dendrix_pipeline.py</em> script. The analysis performed in the pipeline, the parameters for customizing the analysis, and documentation of the program itself are presented below.</p>
+<div class="section" id="outline">
+<h2>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/pipeline.png" src="_images/pipeline.png" />
+<p>The Multi-Dendrix pipeline (implemented in <a class="reference internal" href="module_docs/pipeline/multi_dendrix_pipeline.run.html#multi_dendrix_pipeline.run" title="multi_dendrix_pipeline.run"><tt class="xref py py-func docutils literal"><span class="pre">multi_dendrix_pipeline.run()</span></tt></a>) consists of the following steps:</p>
+<ol class="arabic simple">
+<li>Runs Multi-Dendrix on input mutation data for a range of number <em>t</em> of gene sets and maximum gene set size <em>kmax</em>. This yields a set of <em>collections</em> of gene sets (see <a class="reference internal" href="module_docs/pipeline/multi_dendrix_pipeline.batch_multi_dendrix.html#multi_dendrix_pipeline.batch_multi_dendrix" title="multi_dendrix_pipeline.batch_multi_dendrix"><tt class="xref py py-func docutils literal"><span class="pre">multi_dendrix_pipeline.batch_multi_dendrix()</span></tt></a>). The motivation for running Multi-Dendrix on a range of parameter settings is that while we expect genes in the same functional pathway to have approximate exclusivity in their mutations, we do not know the sizes or the number of these pathways. By running on a range of parameter sizes, we hope to identify these true values (detailed in the next step).</li>
+<li>Analyze the collections identified in 1. for the gene sets that appear together consistently across parameter choices (see <a class="reference internal" href="module_docs/core_modules/multi_dendrix.core_modules.extract.html#multi_dendrix.core_modules.extract" title="multi_dendrix.core_modules.extract"><tt class="xref py py-func docutils literal"><span class="pre">multi_dendrix.core_modules.extract()</span></tt></a>).</li>
+<li>Evaluate each collection for statistical signficance using a <em>matrix permutation test</em>. See <a class="reference internal" href="module_docs/pipeline/multi_dendrix_pipeline.run_matrix_permutation_test.html#multi_dendrix_pipeline.run_matrix_permutation_test" title="multi_dendrix_pipeline.run_matrix_permutation_test"><tt class="xref py py-func docutils literal"><span class="pre">multi_dendrix_pipeline.run_matrix_permutation_test()</span></tt></a> and <a class="reference internal" href="module_docs/matrix_permutation_test/multi_dendrix.evaluate.matrix.matrix_permutation_test.html#multi_dendrix.evaluate.matrix.matrix_permutation_test" title="multi_dendrix.evaluate.matrix.matrix_permutation_test"><tt class="xref py py-func docutils literal"><span class="pre">multi_dendrix.evaluate.matrix.matrix_permutation_test()</span></tt></a> for details.</li>
+<li>Evaluate each collection for enrichment of protein-protein interactions on a protein-protein interaction (PPI) network. See <a class="reference internal" href="module_docs/pipeline/multi_dendrix_pipeline.run_network_permutation_test.html#multi_dendrix_pipeline.run_network_permutation_test" title="multi_dendrix_pipeline.run_network_permutation_test"><tt class="xref py py-func docutils literal"><span class="pre">multi_dendrix_pipeline.run_network_permutation_test()</span></tt></a> and <a class="reference internal" href="module_docs/network_tests/multi_dendrix.evaluate.network.direct_interactions_test.html#multi_dendrix.evaluate.network.direct_interactions_test" title="multi_dendrix.evaluate.network.direct_interactions_test"><tt class="xref py py-func docutils literal"><span class="pre">multi_dendrix.evaluate.network.direct_interactions_test()</span></tt></a> for details.</li>
+<li>Analyze all genes (or mutation classes) for (sub)type-specific mutations (if subtypes are known). See <a class="reference internal" href="module_docs/subtype_specific_genes/multi_dendrix.subtypes.subtype_analysis.html#multi_dendrix.subtypes.subtype_analysis" title="multi_dendrix.subtypes.subtype_analysis"><tt class="xref py py-func docutils literal"><span class="pre">multi_dendrix.subtypes.subtype_analysis()</span></tt></a> for details.</li>
+<li>Output the results of the analysis as both text and HTML files.</li>
+</ol>
+<p>At this time, the pipeline does not include any functions for preprocessing mutation data.</p>
+</div>
+<div class="section" id="arguments">
+<h2>Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h2>
+<p>The Multi-Dendrix pipeline accepts the following parameters. You may also be interested in the <a class="reference internal" href="file_formats.html"><em>Input File Formats</em></a> accepted by Multi-Dendrix.</p>
+<table style="font-size:9pt" class="longtable docutils" border="1">
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Flag(s)</th>
+<th>Required</th>
+<th>Default</th>
+<th>Example</th>
+</tr>
+<tr>
+<td>Output directory</td>
+<td><i>string</i></td>
+<td>Directory name to store the text and HTML output.</td>
+<td>-o<br/>--output_dir</td>
+<td>Yes.</td>
+<td>N/A</td>
+<td>"output"</td>
+</tr>
+<tr>
+<td>Verbose</td>
+<td><i>boolean</i></td>
+<td>Flag whether to output progress or not.</td>
+<td>-v<br/>--verbose</td>
+<td>No.</td>
+<td>False</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><i>k</i><sub>min</sub></td>
+<td><i>integer</i></td>
+<td>Minimum gene set size.</td>
+<td>-k_min<br/>--min_gene_set_size</td>
+<td>Yes.</td>
+<td>N/A</td>
+<td>2</td>
+</tr>
+<tr>
+<td><i>k</i><sub>max</sub></td>
+<td><i>integer</i></td>
+<td>Maximum gene set size.</td>
+<td>-k_max<br/>--max_gene_set_size</td>
+<td>Yes.</td>
+<td>N/A</td>
+<td>3</td>
+</tr>
+<tr>
+<td><i>t</i><sub>min</sub></td>
+<td><i>integer</i></td>
+<td>Minimum number of gene sets.</td>
+<td>-t_min<br/>--min_num_gene_sets</td>
+<td>Yes.</td>
+<td>N/A</td>
+<td>2</td>
+</tr>
+<tr>
+<td><i>t</i><sub>min</sub></td>
+<td><i>integer</i></td>
+<td>Maximum number of gene sets.</td>
+<td>-t_max<br/>--max_num_gene_sets</td>
+<td>Yes.</td>
+<td>N/A</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Data name</td>
+<td><i>string</i></td>
+<td>Name of data (for use in naming output files).</td>
+<td>-n<br/>--db_name</td>
+<td>Yes.</td>
+<td>N/A</td>
+<td>"BRCA"</td>
+</tr>
+<tr>
+<td>Mutation matrix file</td>
+<td><i>string</i></td>
+<td>Location of input mutation matrix.</td>
+<td>-m<br/>--mutation_matrix</td>
+<td>Yes.</td>
+<td>N/A</td>
+<td>"BRCA.m2"</td>
+</tr>
+<tr>
+<td>Mutation frequency cutoff</td>
+<td><i>integer</i></td>
+<td>Minimum number of patients a gene must be mutated in to be included in the mutation data.</td>
+<td>-c<br/>--cutoff</td>
+<td>No.</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Patient whitelist</td>
+<td><i>string</i></td>
+<td><a href="file_formats.html#gene-and-patient-whitelists">See description of white- and blacklists.</a></td>
+<td>-p<br/>--patient_whitelist</td>
+<td>No.</td>
+<td>None</td>
+<td>"BRCA.lst"</td>
+</tr>
+<tr>
+<td>Patient blacklist</td>
+<td><i>string</i></td>
+<td><a href="file_formats.html#gene-and-patient-whitelists">See description of white- and blacklists.</a></td>
+<td>-bp<br/>--patient_blacklist</td>
+<td>No.</td>
+<td>None</td>
+<td>"BRCA.blst"</td>
+</tr>
+<td>Gene whitelist</td>
+<td><i>string</i></td>
+<td><a href="file_formats.html#gene-and-patient-whitelists">See description of white- and blacklists.</a></td>
+<td>-g<br/>--gene_whitelist</td>
+<td>No.</td>
+<td>None</td>
+<td>"BRCA.glst"</td>
+</tr>
+<tr>
+<td>Gene blacklist</td>
+<td><i>string</i></td>
+<td><a href="file_formats.html#gene-and-patient-whitelists">See description of white- and blacklists.</a></td>
+<td>-bg<br/>--gene_blacklist</td>
+<td>No.</td>
+<td>None</td>
+<td>"fishy_genes.glst"</td>
+</tr>
+<tr>
+<td>&alpha;</td>
+<td><i>float</i></td>
+<td>Changes tradeoff between coverage and coverage overlap in the weight function used by Multi-Dendrix.</td>
+<td>-a<br/>--alpha</td>
+<td>No.</td>
+<td>1.0</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td>&Delta;</td>
+<td><i>integer</i></td>
+<td>The number of overlaps allowed between gene sets in a single collection output by Multi-Dendrix.</td>
+<td>-d<br/>--delta</td>
+<td>No.</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>&lambda;</td>
+<td><i>integer</i></td>
+<td>The number of gene sets a gene is allowed to be a member in a single collection output by Multi-Dendrix.</td>
+<td>-l<br/>--lmbda</td>
+<td>No.</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Stability threshold for core modules</td>
+<td><i>integer</i></td>
+<td>The number of gene sets a pair of genes must be a member of together to be grouped into the same core module.</td>
+<td>--stability_threshold</td>
+<td>No.</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Perform subtype analysis</td>
+<td><i>boolean</i></td>
+<td>Flag whether the pipeline should include subtype-specific mutation analysis.</td>
+<td>--subtypes</td>
+<td>No.</td>
+<td>False</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Significance level for subtype-specific mutations</td>
+<td><i>float</i></td>
+<td>The maximum Bonferonni-corrected <i>p</i>-value for reported subtype-specific mutations.</td>
+<td>--subtype_sig_threshold</td>
+<td>No.</td>
+<td>0.05</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>Perform evaluation</td>
+<td><i>boolean</i></td>
+<td>Flag whether to perform the statistical significance and network analysis tests.</td>
+<td>--permute</td>
+<td>No.</td>
+<td>False</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Input PPI network</td>
+<td><i>string</i></td>
+<td>File location of an input PPI network (formatted as a <a href="http://networkx.github.com/documentation/latest/reference/readwrite.edgelist.html?highlight=edgelist#networkx.readwrite.edgelist">NetworkX edge list</a>).</td>
+<td>-ppi<br/>--network_edgelist</td>
+<td>No.</td>
+<td>None</td>
+<td>"iref_edgelist"</td>
+</tr>
+<tr>
+<td>Number of permuted networks</td>
+<td><i>integer</i></td>
+<td>Number of permuted PPI networks to create when performing the <i>direct interactions test</i>. Only used when a directory location of premuted networks is not provided.</td>
+<td>--num_permuted_networks</td>
+<td>No.</td>
+<td>5</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>Permuted networks directory</td>
+<td><i>string</i></td>
+<td>Directory location of permuted network edge lists.</td>
+<td>--permuted_networks_dir</td>
+<td>No.</td>
+<td>None</td>
+<td>"permuted_iref/"</td>
+</tr>
+<tr>
+<td>Average pairwise distance flag</td>
+<td><i>boolean</i></td>
+<td>Flag whether to perform the average pairwise distance test instead of the direct interactions test.</td>
+<td>--distance</td>
+<td>No.</td>
+<td>False</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Q</td>
+<td><i>integer</i></td>
+<td>Parameter to control the number of edge swaps when permuting PPI networks. For graph G=(V, E), Q * |E| edge swaps are performed.</td>
+<td>--Q</td>
+<td>No.</td>
+<td>100</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Number of permuted matrices</td>
+<td><i>integer</i></td>
+<td>Number of permuted matrices to create when calculating statistical significance. Only used when a directory location of premuted matrices is not provided.</td>
+<td>--num_permuted_matrices</td>
+<td>No.</td>
+<td>5</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Permuted matrices directory</td>
+<td><i>string</i></td>
+<td>Directory location of permuted matrices.</td>
+<td>--permuted_matrices_dir</td>
+<td>No.</td>
+<td>None</td>
+<td>"permuted_BRCA/"</td>
+</tr>
+
+</table></div>
+<div class="section" id="script">
+<h2>Script<a class="headerlink" href="#script" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="module_docs/pipeline/multi_dendrix_pipeline.run.html#multi_dendrix_pipeline.run" title="multi_dendrix_pipeline.run"><tt class="xref py py-obj docutils literal"><span class="pre">run</span></tt></a>(args)</td>
+<td>Runs the whole <tt class="xref doc docutils literal"><span class="pre">Multi-Dendrix</span> <span class="pre">pipeline</span></tt> for the given command-line arguments.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="module_docs/pipeline/multi_dendrix_pipeline.batch_multi_dendrix.html#multi_dendrix_pipeline.batch_multi_dendrix" title="multi_dendrix_pipeline.batch_multi_dendrix"><tt class="xref py py-obj docutils literal"><span class="pre">batch_multi_dendrix</span></tt></a>(args)</td>
+<td>Runs Multi-Dendrix for each parameter setting on the input</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="module_docs/pipeline/multi_dendrix_pipeline.run_network_permutation_test.html#multi_dendrix_pipeline.run_network_permutation_test" title="multi_dendrix_pipeline.run_network_permutation_test"><tt class="xref py py-obj docutils literal"><span class="pre">run_network_permutation_test</span></tt></a>(args,&nbsp;...)</td>
+<td>Runs the direct interactions or average pairwise distance test on each of the collections and the core_modules.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="module_docs/pipeline/multi_dendrix_pipeline.run_matrix_permutation_test.html#multi_dendrix_pipeline.run_matrix_permutation_test" title="multi_dendrix_pipeline.run_matrix_permutation_test"><tt class="xref py py-obj docutils literal"><span class="pre">run_matrix_permutation_test</span></tt></a>(args,&nbsp;...)</td>
+<td>Runs the direct interactions or average pairwise distance test on each of the collections and the core_modules.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="#">pipeline</a>|&nbsp;</li>
+        <li><a href="contents.html">contents</a>|&nbsp;</li>
+        <li><a href="examples.html">examples</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Max Leiserson.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
