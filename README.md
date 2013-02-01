@@ -6,6 +6,7 @@ This Python package implements the Multi-Dendrix algorithm for analyzing driver 
 Install
 --------
 After pulling from Github, simply run:
+
   `python setup.py install`
 
 System requirements
@@ -22,7 +23,9 @@ In addition, for web output with network figures, Multi-Dendrix requires the ins
 Usage
 ------
 To run the full Multi-Dendrix pipeline on the provided data,
+   
    `./run_multi_dendrix.sh`
+
 For other uses, please refer to our documentation (see below).
 
 Documentation
