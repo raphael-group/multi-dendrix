@@ -1,7 +1,7 @@
 Rapid identification of multiple driver pathways from cancer data
 --------------------------------------------------------------------------------
 
-.. figure:: _static/striking_img.png
+.. figure:: _static/striking_img.*
 	:scale: 100%
 	:alt: Mutation matrix of a gene set identified by Multi-Dendrix
 
@@ -17,7 +17,7 @@ Rapid identification of multiple driver pathways from cancer data
 
 Multi-Dendrix Pipeline
 ==================
-.. figure:: _static/pipeline.png
+.. figure:: _static/pipeline.*
 	:scale: 100%
 	:alt: Multi-Dendrix pipeline
 

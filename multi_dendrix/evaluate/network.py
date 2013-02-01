@@ -184,7 +184,7 @@ def avg_pair_dist_ratio(network, collection):
 	    >>> G.add_edges_from([("G1", "G2"), ("G3", "G4"), ("G2", "G5"), ("G4", "G5")])
 	    >>> nx.draw_circular(G, node_size=125, font_size=8)
 
-	    .. image:: /_static/direct_interactions_test_graph.png
+	    .. image:: /_static/direct_interactions_test_graph.*
 	  Calculating :math:`\\alpha'(\mathbf{P})` and :math:`\\beta'(\mathbf{P})`:
 	    >>> dist_within = sum_dist(G, pairs_within(collection))
 	    >>> alpha_prime  = float(dist_within) / float(len(pairs_within(collection)))
@@ -253,7 +253,7 @@ def avg_pair_dist_test(collection, G, Hs):
 	    >>> Hs =[ nx.double_edge_swap(G.copy(), nswap=10, max_tries=1e75) for i in range(10) ]
 	    >>> nx.draw_circular(G, node_size=125, font_size=8)
 	  
-	    .. image:: /_static/direct_interactions_test_graph.png
+	    .. image:: /_static/direct_interactions_test_graph.*
 	  A simple example
 	    >>> avg_pair_dist_test(collection, G, Hs)
 	    (0.33, 0.10)
@@ -378,7 +378,7 @@ def direct_interactions_stat(network, collection):
 	    >>> G.add_edges_from([("G1", "G2"), ("G3", "G4"), ("G2", "G5"), ("G4", "G5")])
 	    >>> nx.draw_circular(G, node_size=125, font_size=8)
 
-	    .. image:: /_static/direct_interactions_test_graph.png
+	    .. image:: /_static/direct_interactions_test_graph.*
 	  Calculating :math:`\\alpha(\mathbf{P})` and :math:`\\beta(\mathbf{P})`:
 	    >>> int_within = count_interactions(G, pairs_within(collection))
 	    >>> alpha  = float(int_within) / float(len(pairs_within(collection)))
@@ -433,7 +433,7 @@ def direct_interactions_test(collection, G, Hs):
 	    >>> Hs =[ nx.double_edge_swap(G.copy(), nswap=10, max_tries=1e75) for i in range(10) ]
 	    >>> nx.draw_circular(G, node_size=125, font_size=8)
 	  
-	    .. image:: /_static/direct_interactions_test_graph.png
+	    .. image:: /_static/direct_interactions_test_graph.*
 	  A simple example
 	    >>> direct_interactions_test(collection, G, Hs)
 	    (1.0, 0.1)

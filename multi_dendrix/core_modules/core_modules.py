@@ -64,7 +64,7 @@ def extract(collections, stability_threshold):
         [['G7', 'G6', 'G5', 'G4'], ['G3', 'G2', 'G1']]
         >>> nx.draw_circular(module_graph, node_size=125, font_size=8)
 
-          .. image:: /_static/module_graph.png
+          .. image:: /_static/module_graph.*
 
     """
     # Load required modules

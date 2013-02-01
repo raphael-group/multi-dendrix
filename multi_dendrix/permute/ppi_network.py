@@ -52,11 +52,11 @@ def permute_network(G, Q):
                               ["G2", "G5"], ["G5", "G6"], ["G5", "G7"]])
         >>> nx.draw_spectral(G, node_size=125, font_size=8)
 
-        .. image:: /_static/ppi_network.png
+        .. image:: /_static/ppi_network.*
       Permuting the network by performing | E | * 10 edge swaps.
         >>> permute_network(G, 10)
 
-        .. image:: /_static/permuted_ppi_network.png
+        .. image:: /_static/permuted_ppi_network.*
 
     **See also:** :func:`load_network`, :func:`multi_dendrix.permute.mutation_data.permute_mutation_data`.
 

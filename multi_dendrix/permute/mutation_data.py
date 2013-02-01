@@ -140,7 +140,7 @@ def construct_mutation_graph(mutation2patients, patient2mutations):
         >>> G = construct_mutation_graph(mutation2patients, patient2mutations)
         >>> nx.draw_spectral(G)
 
-        .. image:: /_static/mutation_graph.png
+        .. image:: /_static/mutation_graph.*
 
     **See also:** :func:`graph_to_mutation_data`, :func:`permute_mutation_data`.
 
@@ -176,7 +176,7 @@ def graph_to_mutation_data(H, genes, patients):
 	    		                  ("G2", "TCGA-02")])
 			>>> nx.draw_spectral(H)
 
-			.. image:: /_static/mutation_graph.png
+			.. image:: /_static/mutation_graph.*
 		Converting the graph into Multi-Dendrix mutation data format:
 			>>> graph_to_mutation_data(H, ["G1", "G2"], ["TCGA-01", "TCGA-02", "TCGA-03"])
 			>>> (2, 3, ['G2', 'G1'], ['TCGA-03', 'TCGA-02', 'TCGA-01'],
@@ -218,7 +218,7 @@ def permute_mutation_data(G, genes, patients, Q=100):
 	    	("G2", "TCGA-02"), ("G3", "TCGA-01"), ("G3", "TCGA-02"), ("G4", "TCGA-03")])
 	    >>> nx.draw_spectral(G, dpi=72, node_size=125, font_size=8)
 	    
-	    .. image:: /_static/permute_mutation_data_before.png
+	    .. image:: /_static/permute_mutation_data_before.*
 	  Permute the mutation data:
 	    >>> M = permute_mutation_data(G, ["G1", "G2", "G3", "G4"], ["TCGA-01", "TCGA-02", "TCGA-03"])
 	    >>> M
@@ -230,7 +230,7 @@ def permute_mutation_data(G, genes, patients, Q=100):
 	    >>> H = construct_mutation_graph(M[-1], M[-2])
 	    >>> nx.draw_spectral(H, dpi=72, node_size=125, font_size=8)
 
-	    .. image:: /_static/permute_mutation_data_after.png
+	    .. image:: /_static/permute_mutation_data_after.*
 	**See also:** :func:`construct_mutation_graph`, :func:`graph_to_mutation_data`.
 	"""
 

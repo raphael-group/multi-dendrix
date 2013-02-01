@@ -55,7 +55,7 @@ def ty_contingency_table(ty, ty2mutations, tys, ty2numpatients):
     """Constructs the contigency table used by Fisher's exact test for subtype-specific mutation analysis.
     
     Contingency table:
-      .. image:: /_static/subtype_specific_genes_cont_table.png
+      .. image:: /_static/subtype_specific_genes_cont_table.*
 
     :type ty: string
     :param ty: Name of (sub)type.
@@ -92,7 +92,7 @@ def subtype_specificity(gene, patient2ty, ty2numpatients, mutation2patients):
     **Test**:
       For a given (sub)type *T* and gene *g* we calculate the statistical association of mutations in *g* to (sub)type *T* as follows:
         1. Construct the following contingency table:
-          .. image:: /_static/subtype_specific_genes_cont_table.png
+          .. image:: /_static/subtype_specific_genes_cont_table.*
         2. Perform Fisher's exact test on the above contingency table.
         3. Bonferonni-correct the *p*-value.
 
