@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Rapid identification of multiple driver pathways from cancer data &mdash; Multi-Dendrix 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Multi-Dendrix 1.0 documentation" href="#" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: center; border-top:15px #24235a solid;">
+<a href="#"><img src="_static/logo.png" border="0" alt="Multi-Dendrix Logo"/></a>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;"></div>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;margin-top:2px;"></div>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;margin-top:2px;"></div>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="#">home</a>|&nbsp;</li>
+        <li><a href="pipeline.html">pipeline</a>|&nbsp;</li>
+        <li><a href="contents.html">contents</a>|&nbsp;</li>
+        <li><a href="examples.html">examples</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Rapid identification of multiple driver pathways from cancer data</a><ul>
+<li><a class="reference internal" href="#multi-dendrix-pipeline">Multi-Dendrix Pipeline</a></li>
+<li><a class="reference internal" href="#key-features">Key features</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rapid-identification-of-multiple-driver-pathways-from-cancer-data">
+<h1>Rapid identification of multiple driver pathways from cancer data<a class="headerlink" href="#rapid-identification-of-multiple-driver-pathways-from-cancer-data" title="Permalink to this headline">¶</a></h1>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/striking_img.png"><img alt="Mutation matrix of a gene set identified by Multi-Dendrix" src="_images/striking_img.png" style="width: 679.0px; height: 79.0px;" /></a>
+<p class="caption">Multi-Dendrix is a software package implemented in Python for the simultaneous identification of multiple driver pathways <em>de novo</em> in somatic mutation data from a cohort of cancer patients. The Multi-Dendrix algorithm relies on two combinatorial properties of mutations in a driver pathway: high coverage and mutual exclusivity. Multi-Dendrix uses IBM&#8217;s CPLEX optimization software to rapidly identify an optimal collection of gene sets from genome-scale data in hundreds of patients.</p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="36%" />
+<col width="30%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference external" href="./installation.html">Installation</a></td>
+<td><a class="reference external" href="./contents.html">Read documentation</a></td>
+<td><a class="reference external" href="./examples.html">See examples</a></td>
+</tr>
+<tr class="row-even"><td><em>step-by-step instructions</em></td>
+<td><em>all modules and functions</em></td>
+<td><em>scripts and results</em></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="multi-dendrix-pipeline">
+<h2>Multi-Dendrix Pipeline<a class="headerlink" href="#multi-dendrix-pipeline" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/pipeline.png"><img alt="Multi-Dendrix pipeline" src="_images/pipeline.png" style="width: 605.0px; height: 172.0px;" /></a>
+<p class="caption">Shown above are the steps of the Multi-Dendrix pipeline. Data preprocessing is shown as a &#8220;precursor&#8221; step and at this time is not part of the Multi-Dendrix software package. Multi-Dendrix takes as input a binary mutation matrix that lists the genes mutated in each patient (for more information on input files see the <a class="reference external" href="./file_formats.html">File formats</a> page). Multi-Dendrix then identifies an optimal collection of gene sets that fit the prescribed paramters, and analyzes the results for a) (sub)type-specific mutations; b) stability measures; c) statistical significance; and, d) enrichment on the <a class="reference external" href="http://irefindex.uio.no/wiki/iRefIndex">iRefIndex</a> protein-protein interaction network. Finally, the results of this analysis are output as both text and HTML. The full pipeline is described <a class="reference internal" href="pipeline.html"><em>Multi-Dendrix Pipeline</em></a>, and is implemented in the multi_dendrix_pipeline module.</p>
+</div>
+</div>
+<div class="section" id="key-features">
+<h2>Key features<a class="headerlink" href="#key-features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Identifies optimal <em>collections</em> of gene sets of variable size that have mutually exclusive mutations.</li>
+<li>Integration with <a class="reference external" href="http://www-01.ibm.com/software/integration/optimization/cplex-optimizer/">IBM&#8217;s CPLEX</a> allows for Multi-Dendrix to use multi-core machines to rapidly identify collections even in large datasets.</li>
+<li>Results are evaluated with a statistical test and on the protein-protein interaction network.</li>
+<li>Includes analysis for (sub)type-specific mutations to help determine if an exclusive pattern of mutations in a gene set is due to a functional relationship or the result subtype-specific targeting.</li>
+<li>Collections are analyzed for stability.</li>
+<li>Results are output in an easy-to-publish web format.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="#">home</a>|&nbsp;</li>
+        <li><a href="pipeline.html">pipeline</a>|&nbsp;</li>
+        <li><a href="contents.html">contents</a>|&nbsp;</li>
+        <li><a href="examples.html">examples</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Max Leiserson.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

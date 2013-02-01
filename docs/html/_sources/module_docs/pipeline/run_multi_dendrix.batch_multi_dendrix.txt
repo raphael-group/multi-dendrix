@@ -1,0 +1,6 @@
+run_multi_dendrix.batch_multi_dendrix
+=====================================
+
+.. currentmodule:: run_multi_dendrix
+
+.. autofunction:: batch_multi_dendrix

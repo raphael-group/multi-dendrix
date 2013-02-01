@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>multi_dendrix.subtypes.ty_contingency_table &mdash; Multi-Dendrix 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Multi-Dendrix 1.0 documentation" href="../../index.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: center; border-top:15px #24235a solid;">
+<a href="../../index.html"><img src="../../_static/logo.png" border="0" alt="Multi-Dendrix Logo"/></a>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;"></div>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;margin-top:2px;"></div>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;margin-top:2px;"></div>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../pipeline.html">pipeline</a>|&nbsp;</li>
+        <li><a href="../../contents.html">contents</a>|&nbsp;</li>
+        <li><a href="../../examples.html">examples</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/module_docs/subtype_specific_genes/multi_dendrix.subtypes.ty_contingency_table.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="multi-dendrix-subtypes-ty-contingency-table">
+<h1>multi_dendrix.subtypes.ty_contingency_table<a class="headerlink" href="#multi-dendrix-subtypes-ty-contingency-table" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="multi_dendrix.subtypes.ty_contingency_table">
+<tt class="descclassname">multi_dendrix.subtypes.</tt><tt class="descname">ty_contingency_table</tt><big>(</big><em>ty</em>, <em>ty2mutations</em>, <em>tys</em>, <em>ty2numpatients</em><big>)</big><a class="headerlink" href="#multi_dendrix.subtypes.ty_contingency_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs the contigency table used by Fisher&#8217;s exact test for subtype-specific mutation analysis.</p>
+<dl class="docutils">
+<dt>Contingency table:</dt>
+<dd><img alt="../../_images/subtype_specific_genes_cont_table.png" class="first last" src="../../_images/subtype_specific_genes_cont_table.png" />
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ty</strong> (<em>string</em>) &#8211; Name of (sub)type.</li>
+<li><strong>ty2mutations</strong> (<em>dictionary</em>) &#8211; Mapping of each subtype to the mutations (in one particular gene) in that subtype.</li>
+<li><strong>tys</strong> (<em>list of strings</em>) &#8211; List of all (sub)types.</li>
+<li><strong>ty2numpatients</strong> (<em>dictionary</em>) &#8211; mapping of each (sub)type to the number of patients of that subtype.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The tuple (<em>x11</em>, <em>x10</em>, <em>x01</em>, <em>x00</em>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt><strong>Examples:</strong></dt>
+<dd><dl class="first last docutils">
+<dt>A view of the input data:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ty2mutations</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;Luminal A&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s">&quot;TCGA-01&quot;</span><span class="p">,</span> <span class="s">&quot;TCGA-02&quot;</span><span class="p">],</span> <span class="s">&quot;Luminal B&quot;</span> <span class="p">:</span> <span class="p">[]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ty2numpatients</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;Luminal A&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;Luminal B&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Luminal A&quot;</span><span class="p">,</span> <span class="s">&quot;Luminal B&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+<dt>A simple example:</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ty_contingency_table</span><span class="p">(</span><span class="s">&quot;Luminal A&quot;</span><span class="p">,</span> <span class="n">ty2mutations</span><span class="p">,</span> <span class="n">tys</span><span class="p">,</span> <span class="n">ty2numpatients</span><span class="p">)</span>
+<span class="go">(2, 0, 0, 1)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>See also:</strong> <a class="reference internal" href="multi_dendrix.subtypes.subtype_specificity.html#multi_dendrix.subtypes.subtype_specificity" title="multi_dendrix.subtypes.subtype_specificity"><tt class="xref py py-func docutils literal"><span class="pre">subtype_specificity()</span></tt></a>, <a class="reference internal" href="multi_dendrix.subtypes.subtype_analysis.html#multi_dendrix.subtypes.subtype_analysis" title="multi_dendrix.subtypes.subtype_analysis"><tt class="xref py py-func docutils literal"><span class="pre">subtype_analysis()</span></tt></a>.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../pipeline.html">pipeline</a>|&nbsp;</li>
+        <li><a href="../../contents.html">contents</a>|&nbsp;</li>
+        <li><a href="../../examples.html">examples</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Max Leiserson.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

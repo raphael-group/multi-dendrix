@@ -1,0 +1,6 @@
+subtype_specific_genes.subtype_specificity
+==========================================
+
+.. currentmodule:: subtype_specific_genes
+
+.. autofunction:: subtype_specificity

@@ -1,0 +1,6 @@
+network_tests.evaluate_collection
+=================================
+
+.. currentmodule:: network_tests
+
+.. autofunction:: evaluate_collection

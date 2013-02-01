@@ -1,0 +1,6 @@
+multi_dendrix.evaluate.network.evaluate_collection
+==================================================
+
+.. currentmodule:: multi_dendrix.evaluate.network
+
+.. autofunction:: evaluate_collection

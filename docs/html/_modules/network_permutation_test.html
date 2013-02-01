@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>network_permutation_test &mdash; Multi-Dendrix 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Multi-Dendrix 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: center; border-top:15px #24235a solid;">
+<a href="../index.html"><img src="../_static/logo.png" border="0" alt="Multi-Dendrix Logo"/></a>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;"></div>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;margin-top:2px;"></div>
+<div style="width:100%;background:#23235a;height:4px;padding:0px;margin-top:2px;"></div>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../pipeline.html">pipeline</a>|&nbsp;</li>
+        <li><a href="../contents.html">contents</a>|&nbsp;</li>
+        <li><a href="../examples.html">examples</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for network_permutation_test</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+
+<span class="c"># Load required modules</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">networkx</span> <span class="kn">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span><span class="p">,</span> <span class="n">product</span>
+
+<span class="k">def</span> <span class="nf">parse_args</span><span class="p">(</span><span class="n">input_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="c"># Parse arguments</span>
+    <span class="kn">import</span> <span class="nn">argparse</span>
+    <span class="k">class</span> <span class="nc">Args</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">Args</span><span class="p">()</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s">&#39;Calculates network permutation test for given pathway set &#39;</span>\
+                  <span class="s">&#39;on the given network.&#39;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-n&#39;</span><span class="p">,</span> <span class="s">&#39;--network_edgelist&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s">&#39;PPI edgelist location.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-i&#39;</span><span class="p">,</span> <span class="s">&#39;--permuted_networks_dir&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s">&#39;Directory of permuted networks.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-p&#39;</span><span class="p">,</span> <span class="s">&#39;--pathway_set_file&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s">&#39;File containing input pathway set.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-o&#39;</span><span class="p">,</span> <span class="s">&#39;--output_file&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s">&#39;Name of output file.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-d&#39;</span><span class="p">,</span> <span class="s">&#39;--distance&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_true&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s">&#39;Flag average pairwise distance test.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-v&#39;</span><span class="p">,</span> <span class="s">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store_true&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s">&#39;Flag verbose mode.&#39;</span><span class="p">)</span>
+
+    <span class="c"># If called from the command line, parse command line args.</span>
+    <span class="k">if</span> <span class="n">input_list</span><span class="p">:</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">input_list</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">args</span>
+
+<div class="viewcode-block" id="load_pathway_set"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.load_pathway_set.html#network_permutation_test.load_pathway_set">[docs]</a><span class="k">def</span> <span class="nf">load_pathway_set</span><span class="p">(</span><span class="n">pathway_set_file</span><span class="p">):</span>
+	<span class="k">return</span> <span class="p">[</span> <span class="n">l</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">pathway_set_file</span><span class="p">)</span> <span class="p">]</span>
+</div>
+<div class="viewcode-block" id="load_network"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.load_network.html#network_permutation_test.load_network">[docs]</a><span class="k">def</span> <span class="nf">load_network</span><span class="p">(</span><span class="n">network_edgelist</span><span class="p">):</span> <span class="k">return</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_edgelist</span><span class="p">(</span><span class="n">network_edgelist</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="remove_name_annotation"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.remove_name_annotation.html#network_permutation_test.remove_name_annotation">[docs]</a><span class="k">def</span> <span class="nf">remove_name_annotation</span><span class="p">(</span><span class="n">genes</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">g</span><span class="p">:</span> <span class="n">g</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;(A)&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;(D)&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">),</span> <span class="n">genes</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="interact"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.interact.html#network_permutation_test.interact">[docs]</a><span class="k">def</span> <span class="nf">interact</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Returns true if g1 interacts with g2 in PPI&#39;&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span> <span class="k">return</span> <span class="n">g2</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">g1</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">nx</span><span class="o">.</span><span class="n">exception</span><span class="o">.</span><span class="n">NetworkXError</span><span class="p">:</span> <span class="k">return</span> <span class="bp">False</span>
+</div>
+<span class="k">def</span> <span class="nf">combos</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span> <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">combinations</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">prod</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">):</span> <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">product</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">))</span>
+
+<div class="viewcode-block" id="pairs_within"><a class="viewcode-back" href="../examples.html#network_permutation_test.pairs_within">[docs]</a><span class="k">def</span> <span class="nf">pairs_within</span><span class="p">(</span><span class="n">pathways</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Given a set of pathways, returns all {n \choose 2} pairs from within EACH pathway&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="n">pairs</span> <span class="o">+</span> <span class="n">combos</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">pathways</span><span class="p">,</span> <span class="p">[])</span>
+</div>
+<div class="viewcode-block" id="pairs_between"><a class="viewcode-back" href="../examples.html#network_permutation_test.pairs_between">[docs]</a><span class="k">def</span> <span class="nf">pairs_between</span><span class="p">(</span><span class="n">pathways</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Given a set of pathways, returns all pairs from each distinct pair of pathways&#39;&#39;&#39;</span>
+    <span class="n">pairs_of_pathways</span> <span class="o">=</span> <span class="n">combos</span><span class="p">(</span><span class="n">pathways</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">pairs</span><span class="p">,</span> <span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span> <span class="n">pairs</span> <span class="o">+</span> <span class="n">prod</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">),</span> <span class="n">pairs_of_pathways</span><span class="p">,</span> <span class="p">[])</span>
+</div>
+<div class="viewcode-block" id="count_interactions"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.count_interactions.html#network_permutation_test.count_interactions">[docs]</a><span class="k">def</span> <span class="nf">count_interactions</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">pairs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Given a PPI and a list of gene pairs, returns the number of genes that interact&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">interact</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">))</span> <span class="k">for</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">])</span>
+</div>
+<div class="viewcode-block" id="num_interactions_in_pathway"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.num_interactions_in_pathway.html#network_permutation_test.num_interactions_in_pathway">[docs]</a><span class="k">def</span> <span class="nf">num_interactions_in_pathway</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">pathway</span><span class="p">):</span>
+    <span class="n">best_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">pathway</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span> <span class="nb">set</span><span class="p">(</span> <span class="n">pathway</span> <span class="p">)</span> <span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pathway</span><span class="p">)</span>
+    <span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">pathway</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">pathway</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">count_interactions</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">pairs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="num_interaction_statistic"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.num_interaction_statistic.html#network_permutation_test.num_interaction_statistic">[docs]</a><span class="k">def</span> <span class="nf">num_interaction_statistic</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">pathways</span><span class="p">):</span>
+    <span class="n">within_pairs</span> <span class="o">=</span> <span class="n">pairs_within</span><span class="p">(</span><span class="n">pathways</span><span class="p">)</span>
+    <span class="n">interactions_within</span>  <span class="o">=</span> <span class="n">count_interactions</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">within_pairs</span><span class="p">)</span>
+    <span class="n">nu_within</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">interactions_within</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">within_pairs</span><span class="p">))</span>
+
+    <span class="n">between_pairs</span> <span class="o">=</span> <span class="n">pairs_between</span><span class="p">(</span><span class="n">pathways</span><span class="p">)</span>
+    <span class="n">interactions_between</span> <span class="o">=</span> <span class="n">count_interactions</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">between_pairs</span><span class="p">)</span>
+    <span class="n">nu_between</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span> <span class="n">interactions_between</span> <span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">between_pairs</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">nu_within</span> <span class="o">-</span> <span class="n">nu_between</span>
+</div>
+<div class="viewcode-block" id="num_interactions_network_test"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.num_interactions_network_test.html#network_permutation_test.num_interactions_network_test">[docs]</a><span class="k">def</span> <span class="nf">num_interactions_network_test</span><span class="p">(</span><span class="n">pathways</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">Hs</span><span class="p">):</span>
+	<span class="c"># Remove name annotation for genes in the pathways</span>
+	<span class="n">pathways</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">remove_name_annotation</span><span class="p">(</span><span class="n">P</span><span class="p">)))</span> <span class="k">for</span> <span class="n">P</span> <span class="ow">in</span> <span class="n">pathways</span> <span class="p">]</span>
+	
+	<span class="c"># Calculate the number of interactions statistic in the original network</span>
+	<span class="c"># and the permuted networks. Higher statistics indicate stronger</span>
+	<span class="c"># pathway sets.</span>
+	<span class="n">stat</span>  <span class="o">=</span> <span class="n">num_interaction_statistic</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pathways</span><span class="p">)</span>
+	<span class="n">permuted_stats</span> <span class="o">=</span> <span class="p">[</span> <span class="n">num_interaction_statistic</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">pathways</span><span class="p">)</span> <span class="k">for</span> <span class="n">H</span> <span class="ow">in</span> <span class="n">Hs</span> <span class="p">]</span>
+	<span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">permuted_stats</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;=</span> <span class="n">stat</span> <span class="p">]</span> <span class="p">)</span>
+	<span class="n">pval</span>  <span class="o">=</span> <span class="nb">float</span><span class="p">(</span> <span class="n">count</span> <span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span> <span class="n">Hs</span> <span class="p">)</span> <span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">stat</span><span class="p">,</span> <span class="n">pval</span>
+</div>
+<div class="viewcode-block" id="avg_pair_dist_of_pathway"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.avg_pair_dist_of_pathway.html#network_permutation_test.avg_pair_dist_of_pathway">[docs]</a><span class="k">def</span> <span class="nf">avg_pair_dist_of_pathway</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">pathway</span><span class="p">):</span>
+    <span class="n">min_dist</span> <span class="o">=</span> <span class="mf">1e100</span>
+    <span class="n">pathway</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span> <span class="nb">set</span><span class="p">(</span> <span class="n">pathway</span> <span class="p">)</span> <span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pathway</span><span class="p">)</span>
+    <span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">pathway</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">pathway</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span> <span class="n">sum_dist</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">pairs</span><span class="p">)</span> <span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">pairs</span> <span class="p">)</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="sum_dist"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.sum_dist.html#network_permutation_test.sum_dist">[docs]</a><span class="k">def</span> <span class="nf">sum_dist</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">pairs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Given a PPI and a list of gene pairs, returns the sum of the shortest paths between</span>
+<span class="sd">       each pair.&#39;&#39;&#39;</span>    
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span> <span class="p">[</span> <span class="n">dist</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">)</span> <span class="k">for</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span> <span class="ow">in</span> <span class="n">pairs</span> <span class="p">]</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="dist"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.dist.html#network_permutation_test.dist">[docs]</a><span class="k">def</span> <span class="nf">dist</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Returns the length of the shortest path between g1 and g2 in PPI.</span>
+<span class="sd">       If no path exists, returns 1e100&#39;&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span> <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">shortest_path</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">NetworkXNoPath</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">NetworkXError</span><span class="p">):</span> <span class="k">return</span> <span class="mf">1e100</span>
+</div>
+<div class="viewcode-block" id="avg_pair_dist_ratio"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.avg_pair_dist_ratio.html#network_permutation_test.avg_pair_dist_ratio">[docs]</a><span class="k">def</span> <span class="nf">avg_pair_dist_ratio</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">pathways</span><span class="p">):</span>
+	<span class="c"># Ensure all genes are in the network</span>
+	<span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">network</span><span class="o">.</span><span class="n">nodes</span><span class="p">()</span> <span class="k">for</span> <span class="n">P</span> <span class="ow">in</span> <span class="n">pathways</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">P</span> <span class="p">]):</span>
+		<span class="k">return</span> <span class="mf">1e100</span>
+
+	<span class="c"># Enumerate pairs of genes within the same and between pathways</span>
+	<span class="n">within</span><span class="p">,</span> <span class="n">between</span> <span class="o">=</span> <span class="n">pairs_within</span><span class="p">(</span><span class="n">pathways</span><span class="p">),</span> <span class="n">pairs_between</span><span class="p">(</span><span class="n">pathways</span><span class="p">)</span>
+	<span class="n">within_dists</span>    <span class="o">=</span> <span class="p">[</span> <span class="n">dist</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">)</span> <span class="k">for</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span> <span class="ow">in</span> <span class="n">within</span> <span class="p">]</span>
+	<span class="n">between_dists</span>   <span class="o">=</span> <span class="p">[</span> <span class="n">dist</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">)</span> <span class="k">for</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span> <span class="ow">in</span> <span class="n">between</span> <span class="p">]</span>
+
+	<span class="c"># Ensure all genes in the same pathway are in the same component</span>
+	<span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span> <span class="n">d</span> <span class="o">!=</span> <span class="mf">1e100</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">within_dists</span> <span class="p">]):</span>
+		<span class="k">return</span> <span class="mf">1e100</span>
+
+	<span class="c"># Check if any genes in different pathways are not in the same component</span>
+	<span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span> <span class="n">d</span> <span class="o">!=</span> <span class="mf">1e100</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">between_dists</span> <span class="p">]):</span>
+		<span class="k">return</span> <span class="mi">0</span>
+
+	<span class="c"># If all checks out, return the ratio</span>
+	<span class="n">d_within</span>  <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">within_dists</span><span class="p">))</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">within</span><span class="p">))</span>
+	<span class="n">d_between</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">between_dists</span><span class="p">))</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">between</span><span class="p">))</span>
+	<span class="k">return</span> <span class="n">d_within</span> <span class="o">/</span> <span class="n">d_between</span>
+</div>
+<div class="viewcode-block" id="avg_pair_dist_network_test"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.avg_pair_dist_network_test.html#network_permutation_test.avg_pair_dist_network_test">[docs]</a><span class="k">def</span> <span class="nf">avg_pair_dist_network_test</span><span class="p">(</span><span class="n">pathways</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">Hs</span><span class="p">):</span>
+	<span class="c"># Remove name annotation for genes in the pathways</span>
+	<span class="n">pathways</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">remove_name_annotation</span><span class="p">(</span><span class="n">P</span><span class="p">)))</span> <span class="k">for</span> <span class="n">P</span> <span class="ow">in</span> <span class="n">pathways</span> <span class="p">]</span>
+	
+	<span class="c"># Calculate the average pairwise distance ratio in the original network</span>
+	<span class="c"># and the permuted networks. Lower ratios indicate stronger pathway sets.</span>
+	<span class="n">ratio</span>  <span class="o">=</span> <span class="n">avg_pair_dist_ratio</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pathways</span><span class="p">)</span>
+	<span class="n">permuted_ratios</span> <span class="o">=</span> <span class="p">[</span> <span class="n">avg_pair_dist_ratio</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">pathways</span><span class="p">)</span> <span class="k">for</span> <span class="n">H</span> <span class="ow">in</span> <span class="n">Hs</span> <span class="p">]</span>
+	<span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">permuted_ratios</span> <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="n">ratio</span> <span class="p">]</span> <span class="p">)</span>
+	<span class="n">pval</span>  <span class="o">=</span> <span class="nb">float</span><span class="p">(</span> <span class="n">count</span> <span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span> <span class="n">Hs</span> <span class="p">)</span> <span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">ratio</span><span class="p">,</span> <span class="n">pval</span>
+</div>
+<div class="viewcode-block" id="eval_pathways_by_dist"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.eval_pathways_by_dist.html#network_permutation_test.eval_pathways_by_dist">[docs]</a><span class="k">def</span> <span class="nf">eval_pathways_by_dist</span><span class="p">(</span><span class="n">pathways</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">Hs</span><span class="p">):</span>
+	<span class="n">stats</span><span class="p">,</span> <span class="n">pvals</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+	<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pathways</span><span class="p">:</span>
+		<span class="n">avg_pair_dist</span> <span class="o">=</span> <span class="n">avg_pair_dist_of_pathway</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+		<span class="n">permuted_dists</span>  <span class="o">=</span> <span class="p">[</span> <span class="n">avg_pair_dist_of_pathway</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">H</span> <span class="ow">in</span> <span class="n">Hs</span> <span class="p">]</span>
+		<span class="n">extreme</span> <span class="o">=</span> <span class="p">[</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">permuted_dists</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">avg_pair_dist</span><span class="p">]</span>
+		<span class="n">pval</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">extreme</span><span class="p">)</span> <span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">Hs</span><span class="p">)</span> <span class="p">)</span>
+
+		<span class="n">stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">avg_pair_dist</span> <span class="p">)</span>
+		<span class="n">pvals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">pval</span> <span class="p">)</span>
+
+	<span class="k">return</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pathways</span><span class="p">,</span> <span class="n">stats</span><span class="p">,</span> <span class="n">pvals</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="eval_pathways_by_interactions"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.eval_pathways_by_interactions.html#network_permutation_test.eval_pathways_by_interactions">[docs]</a><span class="k">def</span> <span class="nf">eval_pathways_by_interactions</span><span class="p">(</span><span class="n">pathways</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">Hs</span><span class="p">):</span>
+	<span class="n">stats</span><span class="p">,</span> <span class="n">pvals</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+	<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pathways</span><span class="p">:</span>
+		<span class="n">num_interactions</span> <span class="o">=</span> <span class="n">num_interactions_in_pathway</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+		<span class="n">permuted_counts</span>  <span class="o">=</span> <span class="p">[</span> <span class="n">num_interactions_in_pathway</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">H</span> <span class="ow">in</span> <span class="n">Hs</span> <span class="p">]</span>
+		<span class="n">extreme</span> <span class="o">=</span> <span class="p">[</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">permuted_counts</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">num_interactions</span><span class="p">]</span>
+		<span class="n">pval</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">extreme</span><span class="p">)</span> <span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">Hs</span><span class="p">)</span> <span class="p">)</span>
+
+		<span class="n">stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">num_interactions</span> <span class="p">)</span>
+		<span class="n">pvals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">pval</span> <span class="p">)</span>
+
+	<span class="k">return</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pathways</span><span class="p">,</span> <span class="n">stats</span><span class="p">,</span> <span class="n">pvals</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="evaluate_pathway_set"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.evaluate_pathway_set.html#network_permutation_test.evaluate_pathway_set">[docs]</a><span class="k">def</span> <span class="nf">evaluate_pathway_set</span><span class="p">(</span><span class="n">pathways</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">Hs</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+	<span class="c"># Calculate test statistic and p-value</span>
+	<span class="k">if</span> <span class="n">distance</span><span class="p">:</span>
+		<span class="n">test_name</span> <span class="o">=</span> <span class="s">&#39;Average_Pairwise_Distance_Ratio&#39;</span>
+		<span class="n">statistic</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="n">avg_pair_dist_network_test</span><span class="p">(</span><span class="n">pathways</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">Hs</span><span class="p">)</span>
+		<span class="n">pathway_results</span> <span class="o">=</span> <span class="n">eval_pathways_by_dist</span><span class="p">(</span><span class="n">pathways</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">Hs</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">test_name</span> <span class="o">=</span> <span class="s">&#39;Number_of_Interactions_Statistic&#39;</span>
+		<span class="n">statistic</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="n">num_interactions_network_test</span><span class="p">(</span><span class="n">pathways</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">Hs</span><span class="p">)</span>
+		<span class="n">pathway_results</span> <span class="o">=</span> <span class="n">eval_pathways_by_interactions</span><span class="p">(</span><span class="n">pathways</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">Hs</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">test_name</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">pval</span><span class="p">,</span> <span class="n">pathway_results</span>
+</div>
+<div class="viewcode-block" id="run"><a class="viewcode-back" href="../module_docs/direct_interactions_test/network_permutation_test.run.html#network_permutation_test.run">[docs]</a><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+	<span class="c"># Load input</span>
+	<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span> <span class="k">print</span> <span class="s">&#39;Loading networks...&#39;</span>
+	<span class="n">pathways</span> <span class="o">=</span> <span class="n">load_pathway_set</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">pathway_set_file</span><span class="p">)</span>
+	<span class="n">G</span>        <span class="o">=</span> <span class="n">load_network</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">network_edgelist</span><span class="p">)</span>
+	<span class="n">Hs</span>       <span class="o">=</span> <span class="p">[</span> <span class="n">load_network</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">permuted_networks_dir</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">fh</span><span class="p">)</span>
+	             <span class="k">for</span> <span class="n">fh</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">permuted_networks_dir</span><span class="p">)</span> <span class="p">]</span>
+	
+	<span class="c"># Evaluate the pathway set</span>
+	<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span> <span class="k">print</span> <span class="s">&#39;Evaluating input pathway set...&#39;</span>
+	<span class="n">results</span> <span class="o">=</span> <span class="n">evaluate_pathway_set</span><span class="p">(</span><span class="n">pathways</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">Hs</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">distance</span><span class="p">)</span>
+	<span class="n">test_name</span><span class="p">,</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">pval</span><span class="p">,</span> <span class="n">pathway_results</span> <span class="o">=</span> <span class="n">results</span>	
+
+	<span class="c"># Output and return results</span>
+	<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">output_file</span><span class="p">:</span>
+		<span class="n">header</span> <span class="o">=</span> <span class="s">&#39;Testing</span><span class="se">\t</span><span class="s">&#39;</span> <span class="o">+</span> <span class="n">test_name</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">P-Value</span><span class="se">\n</span><span class="s">&#39;</span>
+		<span class="n">output</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;Pathway set&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">statistic</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">pval</span><span class="p">)])</span> <span class="p">]</span>
+		<span class="k">for</span> <span class="n">pathway</span><span class="p">,</span> <span class="n">stat</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pathway_results</span><span class="p">:</span>
+			<span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pathway</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">stat</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)])</span> <span class="p">)</span>
+		<span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output_file</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
+	
+	<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+		<span class="k">print</span> <span class="s">&#39;Pathway set test&#39;</span>
+		<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span> <span class="o">+</span> <span class="n">test_name</span> <span class="o">+</span> <span class="s">&#39;:&#39;</span><span class="p">,</span> <span class="n">statistic</span>
+		<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">P-value:&#39;</span><span class="p">,</span> <span class="n">pval</span>
+		<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">Individual pathways test&#39;</span>
+		<span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">stat</span><span class="p">,</span> <span class="n">pval</span> <span class="ow">in</span> <span class="n">pathway_results</span><span class="p">:</span>
+			<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Genes:&#39;</span><span class="p">,</span> <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+			<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Statistic:&#39;</span><span class="p">,</span> <span class="n">stat</span>
+			<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">P-value:&#39;</span><span class="p">,</span> <span class="n">pval</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+
+	<span class="k">return</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">pval</span><span class="p">,</span> <span class="n">pathway_results</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span> <span class="n">run</span><span class="p">(</span><span class="n">parse_args</span><span class="p">())</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../pipeline.html">pipeline</a>|&nbsp;</li>
+        <li><a href="../contents.html">contents</a>|&nbsp;</li>
+        <li><a href="../examples.html">examples</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Max Leiserson.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

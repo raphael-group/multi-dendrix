@@ -1,0 +1,6 @@
+network_permutation_test.direct_interactions_test
+=================================================
+
+.. currentmodule:: network_permutation_test
+
+.. autofunction:: direct_interactions_test

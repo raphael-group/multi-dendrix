@@ -1,0 +1,6 @@
+multi_dendrix.permute.mutation_data.permute_mutation_data
+=========================================================
+
+.. currentmodule:: multi_dendrix.permute.mutation_data
+
+.. autofunction:: permute_mutation_data

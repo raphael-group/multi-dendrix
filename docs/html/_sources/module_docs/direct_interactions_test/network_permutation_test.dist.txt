@@ -1,0 +1,6 @@
+network_permutation_test.dist
+=============================
+
+.. currentmodule:: network_permutation_test
+
+.. autofunction:: dist

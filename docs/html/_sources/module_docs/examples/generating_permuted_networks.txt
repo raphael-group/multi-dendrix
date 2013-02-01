@@ -1,0 +1,16 @@
+generating_permuted_networks
+============================
+
+.. automodule:: generating_permuted_networks
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   

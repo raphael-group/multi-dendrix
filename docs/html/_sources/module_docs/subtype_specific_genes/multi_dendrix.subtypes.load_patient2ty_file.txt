@@ -1,0 +1,6 @@
+multi_dendrix.subtypes.load_patient2ty_file
+===========================================
+
+.. currentmodule:: multi_dendrix.subtypes
+
+.. autofunction:: load_patient2ty_file

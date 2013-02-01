@@ -1,0 +1,6 @@
+multi_dendrix.core_modules.extract
+==================================
+
+.. currentmodule:: multi_dendrix.core_modules
+
+.. autofunction:: extract

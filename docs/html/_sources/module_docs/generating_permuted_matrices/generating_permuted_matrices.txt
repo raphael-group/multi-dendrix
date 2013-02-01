@@ -1,0 +1,16 @@
+generating_permuted_matrices
+============================
+
+.. automodule:: generating_permuted_matrices
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   

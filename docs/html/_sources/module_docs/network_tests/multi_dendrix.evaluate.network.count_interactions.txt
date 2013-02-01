@@ -1,0 +1,6 @@
+multi_dendrix.evaluate.network.count_interactions
+=================================================
+
+.. currentmodule:: multi_dendrix.evaluate.network
+
+.. autofunction:: count_interactions

@@ -1,0 +1,6 @@
+network_permutation_test.load_collection
+========================================
+
+.. currentmodule:: network_permutation_test
+
+.. autofunction:: load_collection

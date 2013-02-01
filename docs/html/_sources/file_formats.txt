@@ -1,0 +1,57 @@
+Input File Formats
+============================
+There are several classes of input to Multi-Dendrix. This page will explain each of the files, and give an overview of the file formats. Unless otherwise noted, all files are space-separated and lines starting with '#' are ignored.
+
+Mutation data files
+-----------------
+
+Mutation matrix
+***************
+
+The only required file for Multi-Dendrix is the *mutation matrix*. The mutation matrix is an :math:`m \times n` matrix
+
+.. math::
+	A_{ij} = \begin{cases} 0 & \text{if gene $j$ is mutated in patient $i$,} \\
+	                       1 & \text{otherwise.} \end{cases}
+
+Thus the mutation matrix contains a mapping of patients to the genes or mutation classes they have mutated. Given just a mutation matrix, Multi-Dendrix will compute on the entire set of patients and genes (files for restricting the patients or genes input to Multi-Dendrix are explained below). The mutation matrix is *tab-separated*.
+
+**Mutation matrix file format example**
+
+======== =================================
+#Patient  Mutation classes (tab-separated)
+TCGA-01  G1 G2 G3
+TCGA-02  G3 G5
+TCGA-03  G8 G9 G14
+======== =================================
+
+Gene and Patient Whitelists
+***************************
+The gene and patient whitelists are used to restrict the genes and patients that are analyzed from a mutation matrix. They are both lists, with one gene (respectively patient) per line. If a gene / patient whitelist is given, Multi-Dendrix will only consider the genes / patients if they are in the whitelist. Genes / patients in the whitelist but not in the mutation matrix will be ignored.
+
+(Sub)type-Specific Mutations
++++++++++++++++++++++++++++++
+The patient whitelist is *required* for analyzing (sub)type-specific mutations. However, when used for analyzing (sub)type-specific mutations, the patient whitelist requires the (sub)type to be present on the same line as the patient ID, e.g.
+
+========= ===========
+#Patient  (Sub)type
+TCGA-01   Luminal A
+TCGA-02   Basal-like
+========= ===========
+
+Genes and Mutation Classes
++++++++++++++++++++++++++++
+The names of genes (or mutation classes) input to Multi-Dendrix can be anything (e.g. numbers, strings, symbols). However, when analyzing the results of Multi-Dendrix on a protein-protein interaction (PPI) network, the gene (or mutation class) names become important because they need to be mapped to individual genes on the PPI network. We have adopted two conventions for *pre-processing* input to the Multi-Dendrix pipeline.
+  1. Mutation classes that describe multiple CNVs should be collapsed to one "target" (or removed from the network analysis). Of course, you could also modify the *direct interactions test* to test multiple genes in a "metagene" that includes more than one gene.
+  2. Mutation classes that describe CNVs should have the string '(A)' or '(D)' appended to the gene name(s) if the event is an amplification or deletion. 
+
+Gene and Patient Blacklists
+***************************
+The gene and patient blacklists are the natural counterpart to the gene and patient whitelists explained above. They have the exact same file format (one line per gene / patient), and any blacklisted genes / patients that appear in the mutation matrix will be removed. Genes / patients in the blacklist but not in the mutation matrix will be ignored.
+
+Protein-Protein Interaction (PPI) network files
+-----------------
+
+Edge lists
+***************
+The main file format for loading PPI networks in the Multi-Dendrix pipeline is the *edge list*. The edge list is used to create a graph via the NetworkX module's `load_edgelist <http://goo.gl/6u3ai>`_ function. The basic format used here is to list one edge per line as a space-separated pair of gene. You can read more about the format's accepted by NetworkX in the documentation of the `parse_edgelist <http://goo.gl/m3srj>`_ function.

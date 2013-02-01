@@ -1,0 +1,6 @@
+multi_dendrix.evaluate.matrix.matrix_permutation_test
+=====================================================
+
+.. currentmodule:: multi_dendrix.evaluate.matrix
+
+.. autofunction:: matrix_permutation_test

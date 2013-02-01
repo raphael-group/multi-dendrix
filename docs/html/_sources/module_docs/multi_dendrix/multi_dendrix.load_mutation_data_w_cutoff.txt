@@ -1,0 +1,6 @@
+multi_dendrix.load_mutation_data_w_cutoff
+=========================================
+
+.. currentmodule:: multi_dendrix
+
+.. autofunction:: load_mutation_data_w_cutoff

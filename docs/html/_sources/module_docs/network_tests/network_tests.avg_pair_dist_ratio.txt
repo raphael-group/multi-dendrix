@@ -1,0 +1,6 @@
+network_tests.avg_pair_dist_ratio
+=================================
+
+.. currentmodule:: network_tests
+
+.. autofunction:: avg_pair_dist_ratio

@@ -1,0 +1,6 @@
+multi_dendrix.evaluate.network.avg_pair_dist_test
+=================================================
+
+.. currentmodule:: multi_dendrix.evaluate.network
+
+.. autofunction:: avg_pair_dist_test
