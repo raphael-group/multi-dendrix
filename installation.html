@@ -96,10 +96,27 @@
 <h1>Installation instructions for Multi-Dendrix<a class="headerlink" href="#installation-instructions-for-multi-dendrix" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="downloading-and-installing">
 <h2>Downloading and installing<a class="headerlink" href="#downloading-and-installing" title="Permalink to this headline">¶</a></h2>
-<p>Multi-Dendrix has only been tested in 64-bit Debian Linux.</p>
+<p>To download the latest version of Multi-Dendrix, you can clone from GitHub:</p>
+<div class="highlight-python"><pre>git clone https://github.com/mdml/multi-dendrix.git</pre>
+</div>
+<p>or by visiting <a class="reference external" href="https://github.com/mdml/multi-dendrix">https://github.com/mdml/multi-dendrix</a> where you can download a zipped-version of the files.</p>
+<p>After pulling from Github, simply run:</p>
+<div class="highlight-python"><pre>python setup.py install</pre>
+</div>
 </div>
 <div class="section" id="system-requirements">
 <h2>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h2>
+<p>Multi-Dendrix was developed on 64-bit Debian Linux. It has not been tested on other systems.</p>
+<dl class="docutils">
+<dt>The Multi-Dendrix package requires the following Python modules:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="http://goo.gl/dJV6f">IBM&#8217;s CPLEX</a>.</li>
+<li><a class="reference external" href="http://networkx.github.com">NetworkX</a>.</li>
+<li>Either SciPy v0.11 or <a class="reference external" href="http://goo.gl/zYrLr">fisher0.1.4</a>.</li>
+</ul>
+</dd>
+</dl>
+<p>In addition, for web output with network figures, Multi-Dendrix requires the installation of <a class="reference external" href="http://www.graphviz.org/">GraphViz</a>.</p>
 </div>
 </div>
 
