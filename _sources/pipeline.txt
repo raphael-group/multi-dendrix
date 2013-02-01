@@ -9,10 +9,10 @@ Outline
 The Multi-Dendrix pipeline (implemented in :func:`multi_dendrix_pipeline.run`) consists of the following steps:
 
 1. Runs Multi-Dendrix on input mutation data for a range of number *t* of gene sets and maximum gene set size *kmax*. This yields a set of *collections* of gene sets (see :func:`multi_dendrix_pipeline.batch_multi_dendrix`). The motivation for running Multi-Dendrix on a range of parameter settings is that while we expect genes in the same functional pathway to have approximate exclusivity in their mutations, we do not know the sizes or the number of these pathways. By running on a range of parameter sizes, we hope to identify these true values (detailed in the next step).
-2. Analyze the collections identified in 1. for the gene sets that appear together consistently across parameter choices (see :func:`core_modules.extract_core_modules`). 
-3. Evaluate each collection for statistical signficance using a *matrix permutation test*. See :func:`multi_dendrix_pipeline.run_matrix_permutation_test` and :func:`matrix_permutation_test.matrix_permutation_test` for details.
-4. Evaluate each collection for enrichment of protein-protein interactions on a protein-protein interaction (PPI) network. See :func:`multi_dendrix_pipeline.run_network_permutation_test` and :func:`network_tests.direct_interactions_test` for details.
-5. Analyze all genes (or mutation classes) for (sub)type-specific mutations (if subtypes are known). See :func:`subtype_specific_genes.subtype_analysis` for details.
+2. Analyze the collections identified in 1. for the gene sets that appear together consistently across parameter choices (see :func:`multi_dendrix.core_modules.extract`). 
+3. Evaluate each collection for statistical signficance using a *matrix permutation test*. See :func:`multi_dendrix_pipeline.run_matrix_permutation_test` and :func:`multi_dendrix.evaluate.matrix.matrix_permutation_test` for details.
+4. Evaluate each collection for enrichment of protein-protein interactions on a protein-protein interaction (PPI) network. See :func:`multi_dendrix_pipeline.run_network_permutation_test` and :func:`multi_dendrix.evaluate.network.direct_interactions_test` for details.
+5. Analyze all genes (or mutation classes) for (sub)type-specific mutations (if subtypes are known). See :func:`multi_dendrix.subtypes.subtype_analysis` for details.
 6. Output the results of the analysis as both text and HTML files.
 
 At this time, the pipeline does not include any functions for preprocessing mutation data.

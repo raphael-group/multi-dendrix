@@ -13,6 +13,8 @@ After pulling from Github, simply run::
 
 	python setup.py install
 
+After that, please visit :doc:`getting_started` or just try running some of the scripts.
+
 System requirements
 ---------------------------------------------
 Multi-Dendrix was developed on 64-bit Debian Linux. It has not been tested on other systems.
