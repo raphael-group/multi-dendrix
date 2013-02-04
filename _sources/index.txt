@@ -15,6 +15,7 @@ Rapid identification of multiple driver pathways from cancer data
 
 |
 
+
 Multi-Dendrix Pipeline
 ==================
 .. figure:: _static/pipeline.*
