@@ -13,6 +13,7 @@ Contents:
    output_file_formats.rst
    modules.rst
    examples.rst
+   credits.rst
 
 Indices and tables
 ==================
