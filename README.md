@@ -32,3 +32,6 @@ Documentation
 --------------
 We offer extensive documentation for running Multi-Dendrix, as well as creating custom analysis pipelines, at [http://mdml.github.com/multi-dendrix](http://mdml.github.com/multi-dendrix).
 
+Support
+-----------------
+Please visit our [Google Group](https://groups.google.com/forum/#!forum/dendrix) to post questions and view discussions from other users.
