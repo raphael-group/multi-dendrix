@@ -11,7 +11,7 @@
 
 
 # General parameters
-OUTPUT_DIR=output/GBM
+OUTPUT_DIR=output/GBM/network-only/
 VERBOSE="-v"
 
 # Parameters for the  Multi-Dendrix ILP
@@ -24,16 +24,17 @@ MUTATION_MATRIX=examples/mutation_data/GBM_2008/GBM_2008.m2
 GENE_BLACKLIST=examples/mutation_data/fishy_genes.glst
 
 # Parameters related to the evaluation
-PERMUTE="--permute"
+TESTS="--network_test --weight_test"
 PPI_NETWORK=examples/network/iref_edgelist
 NUM_PERMUTED_MATRICES=1
+NUM_PERMUTED_NETWORKS=1
 
 # Ensure output directory exists
 mkdir -p $OUTPUT_DIR
 
 ./multi_dendrix_pipeline.py -o $OUTPUT_DIR $VERBOSE -k_min $KMIN -k_max $KMAX \
                             -t_min $TMIN -t_max $TMAX -n $NAME \
-                            -m $MUTATION_MATRIX -bg $GENE_BLACKLIST $PERMUTE\
+                            -m $MUTATION_MATRIX -bg $GENE_BLACKLIST $TESTS\
                             -ppi $PPI_NETWORK \
-                            --num_permuted_matrices $NUM_PERMUTED_MATRICES
-
+                            --num_permuted_matrices $NUM_PERMUTED_MATRICES \
+                            --num_permuted_networks $NUM_PERMUTED_NETWORKS

@@ -46,12 +46,13 @@ The Multi-Dendrix pipeline accepts the following parameters. You may also be int
 		Stability threshold for core modules,*integer*,The number of gene sets a pair of genes must be a member of together to be grouped into the same core module.,--stability_threshold,No.,2,1
 		Perform subtype analysis,*boolean*,Flag whether the pipeline should include subtype-specific mutation analysis.,--subtypes,No.,False,N/A
 		Significance level for subtype-specific mutations,*float*,The maximum Bonferonni-corrected <i>p</i>-value for reported subtype-specific mutations.,--subtype_sig_threshold,No.,0.05,0.01
-		Perform evaluation,*boolean*,Flag whether to perform the statistical significance and network analysis tests.,--permute,No.,False,N/A
+		Perform network test,*boolean*,Flag whether to perform the network analysi test.,--network_test,No.,False,N/A
 		Input PPI network,*string*,File location of an input PPI network (formatted as a `NetworkX edge list <http://networkx.github.com/documentation/latest/reference/readwrite.edgelist.html?highlight=edgelist#networkx.readwrite.edgelist>`_),-ppi / --network_edgelist,No.,None,"iref_edgelist"
 		Number of permuted networks,*integer*,Number of permuted PPI networks to create when performing the *direct interactions test*. Only used when a directory location of premuted networks is not provided.,--num_permuted_networks,No.,5,1000
 		Permuted networks directory,*string*,Directory location of permuted network edge lists.,--permuted_networks_dir,No.,None,"permuted_iref/"
 		Average pairwise distance flag,*boolean*,Flag whether to perform the *average pairwise distance test* instead of the *direct interactions test*.,--distance,No.,False,N/A
 		*Q*,*integer*,Parameter to control the number of edge swaps when permuting PPI networks. For graph G=(V; E) Q * |E| edge swaps are performed.,--Q,No.,100,5
+		Perform statistical significance test,*boolean*,Flag whether to perform the statistical significance test.,--weight_test,No.,False,N/A
 		Number of permuted matrices,*integer*,Number of permuted matrices to create when calculating statistical significance. Only used when a directory location of premuted matrices is not provided.,--num_permuted_matrices,No.,5,100
 		Permuted matrices directory,*string*,Directory location of permuted matrices.,--permuted_matrices_dir,No.,None,"permuted_BRCA/"
 
@@ -239,10 +240,10 @@ The Multi-Dendrix pipeline accepts the following parameters. You may also be int
 	<td>0.01</td>
 	</tr>
 	<tr>
-	<td>Perform evaluation</td>
+	<td>Perform network test</td>
 	<td><i>boolean</i></td>
-	<td>Flag whether to perform the statistical significance and network analysis tests.</td>
-	<td>--permute</td>
+	<td>Flag whether to perform the network permutation test.</td>
+	<td>--network_test</td>
 	<td>No.</td>
 	<td>False</td>
 	<td>N/A</td>
@@ -291,6 +292,15 @@ The Multi-Dendrix pipeline accepts the following parameters. You may also be int
 	<td>No.</td>
 	<td>100</td>
 	<td>5</td>
+	</tr>
+	<tr>
+	<td>Perform statistical significance test</td>
+	<td><i>boolean</i></td>
+	<td>Flag whether to perform the statistical significance test.</td>
+	<td>--weight_test</td>
+	<td>No.</td>
+	<td>False</td>
+	<td>N/A</td>
 	</tr>
 	<tr>
 	<td>Number of permuted matrices</td>

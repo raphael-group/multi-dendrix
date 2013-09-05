@@ -38,13 +38,13 @@ def create_collection_tbls(args, collections, core_modules, evaluation):
             # For each gene set, output the weight, the gene set,
             # and its evaluation
             collection, weights = collections[t][k_max]
-            if args.permute: set_eval = network_results[t][k_max]
+            if args.network_test: set_eval = network_results[t][k_max]
             else: set_eval = None
             tables[t][k_max] = format_collection_tbl(args, collection, weights,
                                                       set_eval)
 
     # Add the core module information
-    if args.permute: set_eval = network_results["core_modules"]
+    if args.network_test: set_eval = network_results["core_modules"]
     else: set_eval = None
             
     weights = [ "--" for i in range(len(core_modules)) ]
@@ -137,8 +137,10 @@ def create_params_tbl(args, mutation_data):
         tbl.append( [ 'Subtype significance threshold',
                       args.subtype_sig_threshold ])
 
-    if args.permute:
+    if args.network_test or args.weight_test:
         tbl.append( [ 'Evaluation parameters' ] )
+
+    if args.network_test:
         tbl.append( [ 'Network location', args.network_edgelist ] )
         tbl.append( [ 'Number of permuted networks',
                       args.num_permuted_networks ] )
@@ -149,6 +151,8 @@ def create_params_tbl(args, mutation_data):
             tbl.append( [ 'Network test statistic', 'Avg. pairwise distance' ])
         else:
             tbl.append( [ 'Network test statistic', 'No. of interactions'])
+
+    if args.weight_test:
         tbl.append( [ 'Number of permuted matrices',
                       args.num_permuted_matrices ] )
         tbl.append( [ 'Permuted matrices directory',
@@ -262,10 +266,10 @@ def collection_page(args, t, k_max, collection, weights, net_eval, mtx_pval):
     for i in range(len(collection)):
         page += "<tr><td>" + ', '.join(collection[i]) + "</td>"
         page += "<td>" + str(weights[i]) + "</td>"
-        if net_eval:
+        if args.network_test:
             _, set_stat, set_pval = gene_set_results[i]
-            page += "<td>" + format(set_stat, 'g') + "</td><td>"
-            page += format_pval(set_pval, args.num_permuted_networks)
+            page += "<td>" + format(set_stat, 'g') + "</td>"
+            page += "<td>" + format_pval(float(set_pval), args.num_permuted_networks)
             page += "</td>"
         page += "</tr>\n"
     page += "\n</table>"
@@ -279,12 +283,14 @@ def collection_page(args, t, k_max, collection, weights, net_eval, mtx_pval):
         page += "<tr><td><i>Network permutation test</i></td><td>"
         page += format(collect_stat, 'g') + "</td><td>"
         page += format_pval(collect_pval, args.num_permuted_networks)
-        page += "</td><tr>\n<tr><td><i>Matrix permutation test</i></td>"
-        page += "<td>--</td><td>"
-        page += format_pval(mtx_pval, args.num_permuted_matrices)
-        page += "</td></tr>\n</table>\n"
+        page += "</td><tr>\n"
+        
+    if args.weight_test:
+        page += "<tr><td><i>Matrix permutation test</i></td>"
+        page += "<td>--</td><td>" + format_pval(mtx_pval, args.num_permuted_matrices)
+        page += "</td></tr>\n"
     
-    return page + "</body></html>"
+    return page + "</table>\n</body></html>"
 
 def index_page(args, collections, runtime, (network_eval, matrix_eval)):
     """Function for piecing together the web page that lists all the collections
@@ -300,30 +306,34 @@ def index_page(args, collections, runtime, (network_eval, matrix_eval)):
     # Output collections
     page += "<br/>\n<h1>Collections</h1>\n"
     page += "<b>Runtime: </b>" + '%.3f' % runtime + " seconds."
-    if not args.permute:
+    if not (args.weight_test or args.network_test):
         page += "<br/><i>Evaluation not performed.</i>"
     page  += "<table class='table table-striped table-condensed'>\n"
     page += "<tr><th><i>t</i></th><th><i>k</i><sub>max</sub></th><th>"\
             "Gene Sets</th><th>Weights</th>"
-    if network_eval:
-        page += "<th>Network permutation test</th><th>Matrix permutation test"\
-                "</th>"
+    if args.network_test:
+        page += "<th>Network permutation test</th>"
+    if args.weight_test:
+        page += "<th>Matrix permutation test</th>"
     page += "<th>Link</th></tr>\n"
     for t in [ key for key in collections.keys() if key != "core_modules" ]:
         for k_max in collections[t].keys():
-            if args.permute:
+            if args.network_test:
                 _, set_stat, set_pval, _ = network_eval[t][k_max]
+                net_pval = format_pval(set_pval, args.num_permuted_networks)
+            if args.weight_test:
                 mtx_pval = format_pval(matrix_eval[t][k_max],
                                        args.num_permuted_matrices)
-                net_pval = format_pval(set_pval, args.num_permuted_networks)
 
             collection, weights = collections[t][k_max]
 
             page += "<tr><td>" + str(t) + "</td><td>" + str(k_max) + "</td>"
             page += "<td>" + "<br/>".join( [", ".join(p) for p in collection] )
             page += "</td><td>" + "<br/>".join(map(str, weights)) + "</td>"
-            if args.permute:
-                page += "<td>" + net_pval + "</td><td>" + mtx_pval + "</td>"
+            if args.network_test:
+                page += "<td>" + net_pval + "</td>"
+            if args.weight_test:
+                page += "<td>" + mtx_pval + "</td>"
 
             run_name = "-".join([args.db_name, "t"+str(t), "kmax"+str(k_max)])
             run_link = "<a href='collections/" + run_name + ".html'>>></a>"
@@ -514,7 +524,7 @@ def output_to_html(args, collections, runtime, core_module_graph, evaluation,
         )
 
     # Output core modules
-    if args.permute: core_module_eval = network_eval["core_modules"]
+    if args.network_test: core_module_eval = network_eval["core_modules"]
     else: core_module_eval = None
     open(output_dir + "/core_modules.html", "w").write(
         core_module_page(args, core_module_graph, output_dir,
@@ -523,11 +533,11 @@ def output_to_html(args, collections, runtime, core_module_graph, evaluation,
     # Output each collection
     for t in [ key for key in collections.keys() if key != "core_modules" ]:
         for k_max in collections[t].keys():
-            if args.permute:
-                net_eval = network_eval[t][k_max]
-                mtx_pval = matrix_eval[t][k_max]
-            else:
-                net_eval, mtx_pval = None, None
+            if args.network_test: net_eval = network_eval[t][k_max]
+            else: net_eval = None
+
+            if args.weight_test: mtx_pval = matrix_eval[t][k_max]
+            else: mtx_pval = None
 
             collection, weights = collections[t][k_max]
 

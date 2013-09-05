@@ -224,6 +224,8 @@ def avg_pair_dist_ratio(network, collection):
 
 def avg_pair_dist_test(collection, G, Hs):
 	"""Performs the *average pairwise distance test* on the collection of gene sets.
+        If *t* (number of gene sets in the collection) is 1, then the statistic is 0
+        and the p-value is 1.
 
 	:type collection: list of lists
 	:param collection: collection of gene sets to be tested.
@@ -260,18 +262,21 @@ def avg_pair_dist_test(collection, G, Hs):
 
 	**See also:** :func:`avg_pair_dist_ratio`, :func:`eval_gene_sets_by_dist`, :func:`direct_interactions_test`.
 	"""
-	# Remove name annotation for genes in the gene sets
-	collection = [ list(set(remove_name_annotation(P))) for P in collection ]
-	
-	# Calculate the average pairwise distance ratio in the original network
-	# and the permuted networks. Lower ratios indicate stronger collections.
-	ratio  = avg_pair_dist_ratio(G, collection)
-	permuted_ratios = [ avg_pair_dist_ratio(H, collection) for H in Hs ]
-	count = len( [r for r in permuted_ratios if r <= ratio ] )
-	pval  = float( count ) / float( len( Hs ) )
-
-	return ratio, pval
-
+        # If the collection is just one pathway, the statistic is 0 and p-value 1
+        if len(collection) == 1: return 0., 1.
+        
+        # Remove name annotation for genes in the gene sets
+        collection = [ list(set(remove_name_annotation(P))) for P in collection ]
+        
+        # Calculate the average pairwise distance ratio in the original network
+        # and the permuted networks. Lower ratios indicate stronger collections.
+        ratio  = avg_pair_dist_ratio(G, collection)
+        permuted_ratios = [ avg_pair_dist_ratio(H, collection) for H in Hs ]
+        count = len( [r for r in permuted_ratios if r <= ratio ] )
+        pval  = float( count ) / float( len( Hs ) )
+        
+        return ratio, pval
+      
 ###############################################################################
 # Functions for performing the direct interactions test
 
@@ -406,6 +411,8 @@ def direct_interactions_stat(network, collection):
 
 def direct_interactions_test(collection, G, Hs):
 	"""Performs the *direct interactions test* on the collection of gene sets.
+        If *t* (number of gene sets in the collection) is 1, then the statistic is 0
+        and the p-value is 1.
 
 	:type collection: list of lists
 	:param collection: collection of gene sets to be tested.
@@ -440,18 +447,21 @@ def direct_interactions_test(collection, G, Hs):
 
 	**See also:** :func:`direct_interactions_stat`, :func:`eval_gene_sets_by_interactions`, :func:`avg_pair_dist_test`.
 	"""
-	# Remove name annotation for genes in the gene sets
-	collection = [ list(set(remove_name_annotation(P))) for P in collection ]
-	
-	# Calculate the number of interactions statistic in the original network
-	# and the permuted networks. Higher statistics indicate stronger
-	# collections.
-	stat  = direct_interactions_stat(G, collection)
-	permuted_stats = [ direct_interactions_stat(H, collection) for H in Hs ]
-	count = len( [s for s in permuted_stats if s >= stat ] )
-	pval  = float( count ) / float( len( Hs ) )
-
-	return stat, pval
+        # If the collection is just one pathway, the statistic is 0 and p-value 1
+        if len(collection) == 1: return 0., 1.
+        
+        # Remove name annotation for genes in the gene sets
+        collection = [ list(set(remove_name_annotation(P))) for P in collection ]
+        
+        # Calculate the number of interactions statistic in the original network
+        # and the permuted networks. Higher statistics indicate stronger
+        # collections.
+        stat  = direct_interactions_stat(G, collection)
+        permuted_stats = [ direct_interactions_stat(H, collection) for H in Hs ]
+        count = len( [s for s in permuted_stats if s >= stat ] )
+        pval  = float( count ) / float( len( Hs ) )
+        
+        return stat, pval
 
 ###############################################################################
 # Main functions for evaluating collections of gene sets

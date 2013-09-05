@@ -3,16 +3,20 @@
 # Load required modules
 # Try and load scipy's fisher's exact test function
 try:
-	from scipy.stats import fisher_exact as pvalue
-	def fisher_exact(tbl): return pvalue(tbl, alternative='greater')[1]
+        import scipy.stats
+        def fisher_exact(tbl):
+                odds, pval = scipy.stats.fisher_exact(tbl)
+                return pval
 except ImportError:
-    try:
-        from fisher import pvalue as pvalue
-        def fisher_exact(tbl): return pvalue(*tbl).right_tail
-    except ImportError:
-        import sys
-        print 'Fatal Error: Neither SciPyv0.11 or fisher0.1.4 modules '\
-              '(http://goo.gl/zYrLr) are installed.'
+        try:
+                from fisher import pvalue as pvalue
+                def fisher_exact(T):
+                        tbl = [T[0][0], T[0][1], T[1][0], T[1][1]]
+                        return pvalue(*tbl).right_tail
+        except ImportError:
+                import sys
+                print 'Fatal Error: Neither SciPyv0.11 or fisher0.1.4 modules '\
+                      '(http://goo.gl/zYrLr) are installed.'
         sys.exit(1)
 
 def parse_args(input_list=None):
@@ -132,10 +136,10 @@ def subtype_specificity(gene, patient2ty, ty2numpatients, mutation2patients):
 
     h = dict()
     for ty in tys:
-        cont_table = ty_contingency_table(ty, ty2mutations, tys, ty2numpatients)
-        pval = fisher_exact(cont_table)
+        ctbl = ty_contingency_table(ty, ty2mutations, tys, ty2numpatients)
+        pval = fisher_exact([[ctbl[0], ctbl[1]], [ctbl[2], ctbl[3]]] )
         corrected_pval = pval * num_tests if pval * num_tests <=1 else 1
-        type_mutations, type_normal, non_type_mutations, non_type_normal = cont_table
+        type_mutations, type_normal, non_type_mutations, non_type_normal = ctbl
         
         # Store results
         h[ty] = [ type_mutations, type_normal, non_type_mutations,

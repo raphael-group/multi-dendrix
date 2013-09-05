@@ -95,8 +95,10 @@ def parse_args(input_list=None):
                              '(use 1.0 to report all associations).')
 
     # Options for permutation tests
-    parser.add_argument('--permute', default=False, action='store_true',
-                        help='Perform permutation test.')
+    parser.add_argument('--network_test', default=False, action='store_true',
+                        help='Perform network permutation test.')
+    parser.add_argument('--weight_test', default=False, action='store_true',
+                        help='Perform weight permutation test.')
     parser.add_argument('-ppi', '--network_edgelist', default=None,
                         help='PPI edgelist location.')
     parser.add_argument('--num_permuted_networks', default=5, type=int,
@@ -145,6 +147,7 @@ def batch_multi_dendrix(args):
     mutation_data = Multi.load_mutation_data_w_cutoff(args.mutation_matrix,
                     sample2include, gene2include, args.cutoff)
     m, n, genes, patients, mutation2patients, patient2mutations = mutation_data
+    if args.verbose: print "* Mutation data: %s genes x %s patients" % (m, n)
 
     # Run Multi-Dendrix for the range of parameters 
     ts = range(args.min_num_gene_sets, args.max_num_gene_sets + 1)
@@ -228,15 +231,6 @@ def run_matrix_permutation_test(args, collections, mutation_data):
 
     return evaluation
 
-def permutation_tests(args, collections, core_modules, mutation_data):
-    """Wrapper function that performs both the network and matrix permutation tests
-    on the input collections."""
-    matrix_results = run_matrix_permutation_test(args, collections,
-                                                mutation_data)
-    network_results = run_network_permutation_test(args, collections, 
-                                                   core_modules)
-    return network_results, matrix_results
-
 def flatten_collections(collections):
     """Takes a dictionary of parameter settings to Multi-Dendrix results (as output by 
     :func:`batch_multi_dendrix`), and flattens the map into a list of collections."""
@@ -257,12 +251,18 @@ def run(args):
     core = Multi.core_modules.extract(all_collections, args.stability_threshold)
     core_modules, module_graph = core
 
-    # Perform the permutation test (if required)
-    if args.permute:
-        evaluation  = permutation_tests(args, collections, core_modules, 
-                                        mutation_data)
-    else:
-        evaluation  = None, None
+    # Perform the permutation tests (if required)
+    if args.weight_test:
+        matrix_results = run_matrix_permutation_test(args, collections,
+                                                     mutation_data)
+    else: matrix_results = None
+
+    if args.network_test:
+        network_results = run_network_permutation_test(args, collections, 
+                                                       core_modules)
+    else: network_results = None
+
+    evaluation  = network_results, matrix_results
 
     # Perform subtype analysis (if required)
     if args.subtypes and args.patient_whitelist:
@@ -290,11 +290,10 @@ def run(args):
                                                core_modules, evaluation)
     params_tbl = create_params_tbl(args, mutation_data)
 
-    if args.permute:   
-        network_tbl =  create_network_results_tbl(evaluation[0])
-        matrix_tbl = create_matrix_results_tbl(evaluation[1])
-    else:
-        network_tbl, matrix_tbl = None, None
+    if args.network_test: network_tbl =  create_network_results_tbl(evaluation[0])
+    else: network_tbl = None
+    if args.weight_test: matrix_tbl = create_matrix_results_tbl(evaluation[1])
+    else: matrix_tbl = None
 
     # output results to text and html
     text_output_args = [ args, collection_tbls, runtime, params_tbl,
