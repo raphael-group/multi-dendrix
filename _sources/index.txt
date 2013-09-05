@@ -31,4 +31,5 @@ Key features
 * Results are evaluated with a statistical test and on the protein-protein interaction network.
 * Includes analysis for (sub)type-specific mutations to help determine if an exclusive pattern of mutations in a gene set is due to a functional relationship or the result subtype-specific targeting.
 * Collections are analyzed for stability.
-* Results are output in an easy-to-publish web format.
+* Results are output in an easy-to-publish web format.n
+* To post questions or interact with other users, please visit the `Dendrix Google Group <https://groups.google.com/forum/#!forum/dendrix>`_.
