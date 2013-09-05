@@ -16,7 +16,7 @@ Multi-Dendrix was developed on 64-bit Debian Linux. It has not been tested on ot
 The Multi-Dendrix package requires the following Python modules:
   * [IBM's CPLEX] (http://goo.gl/dJV6f).
   * [NetworkX] (http://networkx.github.com).
-  * Either SciPy v0.11 or [fisher0.1.4](http://goo.gl/zYrLr).
+  * Either SciPy >= version 0.11 or [fisher0.1.4](http://goo.gl/zYrLr).
 
 In addition, for web output with network figures, Multi-Dendrix requires the installation of [GraphViz](http://www.graphviz.org/).
 
