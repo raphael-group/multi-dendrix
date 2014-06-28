@@ -2,7 +2,7 @@
 
 from setuptools import setup, find_packages
 
-LICENSE = """Copyright 2012 Brown University, Providence, RI.
+LICENSE = """Copyright 2012, 2013, 2014 Brown University, Providence, RI.
 
               All rights reserved.                           
 

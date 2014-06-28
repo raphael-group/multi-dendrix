@@ -2,12 +2,6 @@
 
 # Import required modules
 import sys
-try: import cplex
-except ImportError:
-    print "Couldn't import CPLEX. Check your environment's PYTHONPATH "\
-          "variable. For details on the CPLEX python module, please visit "\
-          "http://bit.ly/KL7PVc."
-    sys.exit(1)
 
 def parse_args(input_list=None):
     # Parse arguments
@@ -135,6 +129,14 @@ def ILP(mutation_data, t=2, k_min=2,
 
     **See also:** :func:`load_mutation_data`.
     '''
+    # Make sure CPLEX is available
+    try: import cplex
+    except ImportError:
+        print "Couldn't import CPLEX. Check your environment's PYTHONPATH "\
+              "variable. For details on the CPLEX python module, please visit "\
+              "http://bit.ly/KL7PVc."
+        sys.exit(1)
+
     # Parse mutation data into shorter variable handles
     m, n, genes, patients, mutation2patients, patient2mutations = mutation_data
 

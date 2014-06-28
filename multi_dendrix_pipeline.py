@@ -197,8 +197,8 @@ def run_network_permutation_test(args, collections, core_modules):
     return evaluation
 
 def run_matrix_permutation_test(args, collections, mutation_data):
-    """Runs the direct interactions or average pairwise distance test
-    on each of the collections and the core_modules.
+    """Runs the matrix permutation test on each of the collections and the
+       core_modules.
 
     **Returns**:
       * **evaluation** (*dictionary*) - a mapping of t -> k -> the network evaluation tuple of each collection (see :func:`network_tests.evaluate_collection` for details)
